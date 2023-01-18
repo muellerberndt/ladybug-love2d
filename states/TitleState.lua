@@ -19,6 +19,7 @@ function TitleState:draw()
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.draw(gTextures['title'], 8, 105)
     love.graphics.setColor(1, 0.68, 1, 1)
+    love.graphics.setFont(largeFont)
     love.graphics.print("PRESS ENTER", 60, 170)
 end
 

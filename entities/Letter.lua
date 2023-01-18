@@ -15,30 +15,36 @@ function Letter:init(x, y, letter)
     local states = {
         default = {
             {
-                duration = 3,
-                quad = love.graphics.newQuad(0, 0, 9, 9, 27, 9 ),
-                after = "yellow"
+                duration = 5,
+                quad = love.graphics.newQuad(0, 0, 9, 9, 27, 9),
+                after = "red"
             },
         },
         yellow = {
-            { 
+            {
                 duration = 2,
-                quad = love.graphics.newQuad(18, 0, 9, 9, 27, 9 ),
-                after = "red"
+                quad = love.graphics.newQuad(18, 0, 9, 9, 27, 9),
+                after = "default"
              },
         },
         red = {
             {
                 duration = 1,
-                quad = love.graphics.newQuad(9, 0, 9, 9, 27, 9 ),
-                after = "default"
+                quad = love.graphics.newQuad(9, 0, 9, 9, 27, 9),
+                after = "yellow"
             },
-        }
+        },
     }
 
     self.behavior = Behavior(states)
 
 end
+
+function Letter:onCollide()
+    sounds['eatitem']:play()
+    Event.dispatch('letterAwarded', self)
+end
+
 
 function Letter:destroy()
     sounds['eatdot']:stop()

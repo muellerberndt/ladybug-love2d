@@ -28,6 +28,7 @@ require 'entities.Flower'
 require 'entities.Letter'
 require 'entities.Skull'
 require 'entities.Turnstile'
+require 'entities.PlayFieldScore'
 require 'util.Util'
 Clock = require 'util.Clock'
 tilemap = require 'data.tilemap'
@@ -68,8 +69,8 @@ function love.load()
     love.window.setTitle('Lady Bug')
 
     -- initialize our nice-looking retro text fonts
-    smallFont = love.graphics.newFont('assets/fonts/lady-bug.ttf', 9)
-    love.graphics.setFont(smallFont)
+    smallFont = love.graphics.newFont('assets/fonts/lady-bug.ttf', 6)
+    largeFont = love.graphics.newFont('assets/fonts/lady-bug.ttf', 8)
 
     -- load up the graphics we'll be using throughout our states
     gTextures = {
@@ -97,6 +98,7 @@ function love.load()
     sounds = {
         ['turnstile'] = love.audio.newSource('assets/sounds/turnstile.wav', 'static'),
         ['eatdot'] = love.audio.newSource('assets/sounds/eatdot.wav', 'static'),
+        ['eatitem'] = love.audio.newSource('assets/sounds/eatitem.wav', 'static'),
         ['enemylaunch'] = love.audio.newSource('assets/sounds/enemylaunch.wav', 'static'),
         ['music'] = love.audio.newSource('assets/music/8_Bit_Retro_Funk_David_Renda.mp3', 'static')
     }

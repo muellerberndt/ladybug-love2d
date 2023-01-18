@@ -8,6 +8,7 @@ function LevelStartState:update(dt)
 end
 
 function LevelStartState:draw()
+    love.graphics.setFont(largeFont)
     love.graphics.print("Level " .. self.level .. " start!", 30, 100)
 end
 

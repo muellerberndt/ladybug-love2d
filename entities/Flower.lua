@@ -11,10 +11,14 @@ function Flower:init(x, y)
     }
 end
 
-function Flower:destroy()
+function Flower:onCollide()
     sounds['eatdot']:stop()
     sounds['eatdot']:play()
+    Event.dispatch('awardPoints', 50)
+    self:destroy()
+end
 
+function Flower:destroy()
     Entity.destroy(self)
 end
 
@@ -28,5 +32,3 @@ function Flower:draw()
 
     Entity.draw(self)
 end
-
-return GameObject

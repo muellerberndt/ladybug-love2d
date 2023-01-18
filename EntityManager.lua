@@ -5,6 +5,7 @@ EntityTypes = {
     FLOWER = 4,
     TURNSTILE = 5,
     WALL = 6,
+    GAMEOBJECT = 7
 }
 
 EntityManager = Class{}
@@ -16,6 +17,7 @@ function EntityManager:init()
     self.letters = {}
     self.flowers = {}
     self.turnstiles = {}
+    self.gameObjects = {}
 
     self.size = 0
 
@@ -35,6 +37,8 @@ function EntityManager:addEntity(entity, type)
 		table.insert(self.flowers, entity)
 	elseif type == EntityTypes.TURNSTILE then
 		table.insert(self.turnstiles, entity)
+	elseif type == EntityTypes.GAMEOBJECT then
+		table.insert(self.gameObjects, entity)
 	end
 	self.size = self.size + 1
 end
@@ -105,9 +109,18 @@ function EntityManager:update(dt)
 
 	for i,v in ipairs(self.flowers) do
 		if v:collide(self.player) then
-			v:destroy()
+			v:onCollide()
 		end
 	end
+
+	for i,v in ipairs(self.letters) do
+		if v:collide(self.player) then
+			v:onCollide()
+		end
+	end
+
+	self:updateTable(self.gameObjects, dt)
+
 end
 
 function EntityManager:drawTable(entityTable)
@@ -120,6 +133,7 @@ function EntityManager:draw()
 	self:drawTable(self.flowers)
 	self:drawTable(self.letters)
 	self:drawTable(self.enemies)
+	self:drawTable(self.gameObjects)
 	self.player:draw()
 end
 
@@ -130,6 +144,7 @@ function EntityManager:resetForNewStage()
     self.letters = {}
     self.flowers = {}
     self.turnstiles = {}
+    self.gameObjects = {}
 
 	self.size = 0
 end

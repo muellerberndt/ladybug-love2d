@@ -4,7 +4,6 @@ PlayState = Class{__includes = BaseState}
 function PlayState:init()
 end
 
-
 function PlayState:reset()
     self.entityManager:reset()
 end
@@ -154,9 +153,8 @@ function PlayState:draw()
     local row, col = getTileForPosition(self.entityManager.player.x, self.entityManager.player.y)
 
     love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.setFont(largeFont)
     love.graphics.print("x ".. math.floor(self.entityManager.player.x) .. " y ".. math.floor(self.entityManager.player.y) .. " R ".. row .." C ".. col, 10, 10)
-
-
 
     self.entityManager:draw()
 end
@@ -171,7 +169,29 @@ function PlayState:enter(params)
 
     self:setupLevel(1)
 
-    Event.on('playerDeath', function (dt)
+    self.letterAwardedHandler = Event.on('letterAwarded', function(letter)
+        print("Letter awarded: " .. letter.letter)
+
+        local score
+
+        if letter.behavior.state == "red" then
+            score = 800
+        elseif letter.behavior.state == "yellow" then
+            score = 300
+        else
+            score = 100
+        end
+
+        self.entityManager:addEntity(
+            PlayFieldScore(letter.x - 5, letter.y + 2, score),
+            EntityTypes.GAMEOBJECT
+        )
+
+        letter:destroy()
+    end
+    )
+
+    self.deathHandler = Event.on('playerDeath', function(dt)
 
         Timer.clear()
 
@@ -231,4 +251,6 @@ end
 ]]
 function PlayState:exit()
     sounds['music']:stop()
+    Timer.clear()
+    self.deathHandler:remove()
 end
