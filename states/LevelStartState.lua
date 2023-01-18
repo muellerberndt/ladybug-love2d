@@ -8,13 +8,13 @@ function LevelStartState:update(dt)
 end
 
 function LevelStartState:draw()
-    love.graphics.print("Starting level " .. self.level, 100, 100)
+    love.graphics.print("Level " .. self.level .. " start!", 30, 100)
 end
 
 function LevelStartState:enter(params)
     self.level = params.level
 
-    Timer.after(5, function()
+    Timer.after(1, function()
         gStateMachine:change('play',
             {
                 level = 1,
