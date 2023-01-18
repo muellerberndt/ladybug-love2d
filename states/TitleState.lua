@@ -6,7 +6,12 @@ end
 
 function TitleState:update(dt)
     if love.keyboard.isDown('return') then
-        gStateMachine:change('play')
+        gStateMachine:change('levelstart',
+            {
+                level = 1,
+                score = 0,
+                lives = 3
+            })
     end
 end
 

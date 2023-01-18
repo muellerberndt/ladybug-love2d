@@ -19,11 +19,11 @@ require 'EntityManager'
 require 'StateMachine'
 require 'states.BaseState'
 require 'states.TitleState'
+require 'states.LevelStartState'
 require 'states.PlayState'
 require 'entities.Player'
 require 'entities.Enemy'
 require 'entities.Wall'
-require 'entities.Door'
 require 'entities.Flower'
 require 'entities.Letter'
 require 'entities.Skull'
@@ -111,6 +111,7 @@ function love.load()
     -- initialize state machine with all state-returning functions
     gStateMachine = StateMachine {
         ['title'] = function() return TitleState() end,
+        ['levelstart'] = function () return LevelStartState() end,
         ['play'] = function() return PlayState() end,
     }
     gStateMachine:change('title')

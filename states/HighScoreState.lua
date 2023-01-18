@@ -1,4 +1,4 @@
-HighScoreState = Class{__includes = HighScoreState}
+HighScoreState = Class{__includes = BaseState}
 
 
 function HighScoreState:init()

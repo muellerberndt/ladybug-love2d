@@ -2,60 +2,6 @@ PlayState = Class{__includes = BaseState}
 
 
 function PlayState:init()
-    self.score = 0
-    self.lives = 3
-    self.level = 1
-
-    self:setupLevel(1)
-
-    Event.on('playerDeath', function (dt)
-
-        Timer.clear()
-
-        local data = LevelData[self.level]
-
-        for _, enemy in pairs(self.entityManager.enemies) do
-            enemy:destroy()
-        end
-
-        self.entityManager.player:destroy()
-
-        self.lives = self.lives - 1
-
-        self.entityManager:addEntity(Player(), EntityTypes.PLAYER)
-
-        self.trappedEnemies = {}
-
-        for _, e in pairs(data.enemies) do
-
-            local enemy = Enemy(e, data.enemySpeed, self.entityManager)
-
-            self.entityManager:addEntity(
-                enemy,
-                EntityTypes.ENEMY
-            )
-
-            table.insert(self.trappedEnemies, enemy)
-        end
-
-        self.tick = 0
-
-        Timer.every(data.tick, function()
-            self.tick = self.tick + 1
-    
-            if (self.tick == 82 or self.tick == 174) and #self.trappedEnemies > 0 then
-                sounds['enemylaunch']:play()
-            end
-            if (self.tick == 92 or self.tick == 184) and #self.trappedEnemies > 0 then
-                local idx = #self.trappedEnemies
-                self.trappedEnemies[idx].state = "roaming"
-                table.remove(self.trappedEnemies, idx)
-            end
-            if self.tick == 184 then
-                self.tick = 0
-            end
-        end)
-    end)
 end
 
 
@@ -218,7 +164,63 @@ end
 --[[
     Called when this state is transitioned to from another state.
 ]]
-function PlayState:enter()
+function PlayState:enter(params)
+    self.level = params.level or 1
+    self.score = params.score or 0
+    self.lives = params.lives or 3
+
+    self:setupLevel(1)
+
+    Event.on('playerDeath', function (dt)
+
+        Timer.clear()
+
+        local data = LevelData[self.level]
+
+        for _, enemy in pairs(self.entityManager.enemies) do
+            enemy:destroy()
+        end
+
+        self.entityManager.player:destroy()
+
+        self.lives = self.lives - 1
+
+        self.entityManager:addEntity(Player(), EntityTypes.PLAYER)
+
+        self.trappedEnemies = {}
+
+        for _, e in pairs(data.enemies) do
+
+            local enemy = Enemy(e, data.enemySpeed, self.entityManager)
+
+            self.entityManager:addEntity(
+                enemy,
+                EntityTypes.ENEMY
+            )
+
+            table.insert(self.trappedEnemies, enemy)
+        end
+
+        self.tick = 0
+
+        Timer.every(data.tick, function()
+            self.tick = self.tick + 1
+    
+            if (self.tick == 82 or self.tick == 174) and #self.trappedEnemies > 0 then
+                sounds['enemylaunch']:play()
+            end
+            if (self.tick == 92 or self.tick == 184) and #self.trappedEnemies > 0 then
+                local idx = #self.trappedEnemies
+                self.trappedEnemies[idx].state = "roaming"
+                table.remove(self.trappedEnemies, idx)
+            end
+            if self.tick == 184 then
+                self.tick = 0
+            end
+        end)
+    end)
+
+
     if PLAY_MUSIC then
         sounds['music']:play()
     end
