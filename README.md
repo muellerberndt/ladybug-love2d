@@ -1,2 +1,3 @@
-# ladybug-love2d
-A Löve2D port of the classic Arcade game Ladybug
+# Ladybug LÖVE
+
+A LÖVE port of the classic Arcade game Ladybug.
