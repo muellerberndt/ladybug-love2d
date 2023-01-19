@@ -30,6 +30,13 @@ end
 function PlayState:draw()
 
     love.graphics.draw(gTextures['playfield'], 0, 0)
+    love.graphics.draw(gTextures['top'], 1, 1)
+
+    love.graphics.setFont(largeFont)
+    love.graphics.setColor(0.68, 0.68, 0.68, 1)
+    love.graphics.print("SPECIAL", 9, 9)
+    love.graphics.print("EXTRA", 81, 9)
+    love.graphics.print("x2x3x5", 137, 9)
 
     if SHOW_TILES then
         for y, row in pairs(self.entityManager.tilemap) do
@@ -49,12 +56,12 @@ function PlayState:draw()
 
     Clock.draw(self.tick)
 
-    --- DEBUG
-    local row, col = getTileForPosition(self.entityManager.player.x, self.entityManager.player.y)
+    -- --- DEBUG
+    -- local row, col = getTileForPosition(self.entityManager.player.x, self.entityManager.player.y)
 
-    love.graphics.setColor(1, 1, 1, 1)
-    love.graphics.setFont(largeFont)
-    love.graphics.print("x ".. math.floor(self.entityManager.player.x) .. " y ".. math.floor(self.entityManager.player.y) .. " R ".. row .." C ".. col, 10, 10)
+    -- love.graphics.setColor(1, 1, 1, 1)
+    -- love.graphics.setFont(largeFont)
+    -- love.graphics.print("x ".. math.floor(self.entityManager.player.x) .. " y ".. math.floor(self.entityManager.player.y) .. " R ".. row .." C ".. col, 10, 10)
 
     self.entityManager:draw()
 
@@ -298,7 +305,6 @@ end
 
 
 function PlayState:awardPoints(points)
-    print("Award " .. points .. " x " .. self.multiplier)
     self.score = self.score + points * self.multiplier
 end
 

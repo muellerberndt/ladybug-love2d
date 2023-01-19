@@ -77,6 +77,7 @@ function love.load()
     gTextures = {
         ['title'] = love.graphics.newImage('assets/graphics/title.png'),
         ['playfield'] = love.graphics.newImage('assets/graphics/playfield.png'),
+        ['top'] = love.graphics.newImage('assets/graphics/topfield.png'),
         ['ladybug'] = love.graphics.newImage('assets/graphics/ladybug.png'),
         ['turnstile'] = love.graphics.newImage('assets/graphics/turnstile.png'),
         ['flower'] = love.graphics.newImage('assets/graphics/dot.png'),
