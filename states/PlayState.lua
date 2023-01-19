@@ -59,6 +59,16 @@ function PlayState:setupLevel(level)
     self.entityManager:addEntity(Letter(x - 1, y - 1, common_letter), EntityTypes.LETTER)
     table.remove(available_tiles, idx)
 
+    for i=1, 3, 1 do
+        idx = math.random(#available_tiles)
+        row = available_tiles[idx][1]
+        col = available_tiles[idx][2]
+        x, y = getPositionForTile(row, col)
+
+        self.entityManager:addEntity(Letter(x - 1, y - 1, "heart"), EntityTypes.LETTER)
+        table.remove(available_tiles, idx)
+    end
+
     local numSkulls = math.random(3)
 
     for i=1, numSkulls, 1 do
@@ -68,7 +78,7 @@ function PlayState:setupLevel(level)
         x, y = getPositionForTile(row, col)
 
         self.entityManager:addEntity(Skull(x - 1, y - 1, common_letter), EntityTypes.LETTER)
-
+        table.remove(available_tiles, idx)
     end
 
     for i, tile in pairs(available_tiles) do

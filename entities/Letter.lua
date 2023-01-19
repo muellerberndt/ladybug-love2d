@@ -47,9 +47,6 @@ end
 
 
 function Letter:destroy()
-    sounds['eatdot']:stop()
-    sounds['eatdot']:play()
-
     Entity.destroy(self)
 end
 

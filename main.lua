@@ -82,6 +82,7 @@ function love.load()
         ['cucumber'] = love.graphics.newImage('assets/graphics/cucumber.png'),
         ['skull'] = love.graphics.newImage('assets/graphics/skull.png'),
         ['ghost'] = love.graphics.newImage('assets/graphics/ghost.png'),
+        ['heart'] = love.graphics.newImage('assets/graphics/heart.png'),
         ['a'] = love.graphics.newImage('assets/letters/a.png'),
         ['c'] = love.graphics.newImage('assets/letters/c.png'),
         ['e'] = love.graphics.newImage('assets/letters/e.png'),
