@@ -7,7 +7,7 @@ function Enemy:getNextStep(ownRow, ownCol, playerRow, playerCol, tilemap)
     -- Otherwise we generally want to turn into the direction of the player
     -- a value of "0" in the tilemap means the field is free of obstacles
 
-    print("Orientation: " .. self.orientation .. ", own pos ".. ownRow .. ", " .. ownCol .. " / player pos " .. playerRow .. ", " .. playerCol)
+    -- print("Orientation: " .. self.orientation .. ", own pos ".. ownRow .. ", " .. ownCol .. " / player pos " .. playerRow .. ", " .. playerCol)
 
     if self.orientation == Orientation.UP then
         if tilemap[ownRow - 1][ownCol] == 0 and (playerRow < ownRow or love.math.random() > 0.5) then
