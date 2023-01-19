@@ -1,7 +1,6 @@
 LevelStartState = Class{__includes = BaseState}
 
-function LevelStartState:init(level)
-    self.level = level or 1
+function LevelStartState:init()
 end
 
 function LevelStartState:update(dt)
@@ -13,12 +12,12 @@ function LevelStartState:draw()
 end
 
 function LevelStartState:enter(params)
-    self.level = params.level
+    self.level = params.level or 1
 
     Timer.after(1, function()
         gStateMachine:change('play',
             {
-                level = 1,
+                level = self.level,
                 score = 0,
                 lives = 3
             })

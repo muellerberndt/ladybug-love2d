@@ -77,22 +77,22 @@ function PlayState:setupLevel(level)
         col = available_tiles[idx][2]
         x, y = getPositionForTile(row, col)
 
-        self.entityManager:addEntity(Skull(x - 1, y - 1, common_letter), EntityTypes.LETTER)
+        self.entityManager:addEntity(Skull(x - 1, y - 1, common_letter), EntityTypes.GAMEOBJECT)
         table.remove(available_tiles, idx)
     end
 
-    for i, tile in pairs(available_tiles) do
-        local row = available_tiles[i][1]
-        local col = available_tiles[i][2]
+    -- for i, tile in pairs(available_tiles) do
+    --     local row = available_tiles[i][1]
+    --     local col = available_tiles[i][2]
 
-        local x, y = getPositionForTile(row, col)
+    --     local x, y = getPositionForTile(row, col)
 
-        local flower = Flower(
-            x + 2,
-            y + 2
-        )
-        self.entityManager:addEntity(flower, EntityTypes.FLOWER)
-    end
+    --     local flower = Flower(
+    --         x + 2,
+    --         y + 2
+    --     )
+    --     self.entityManager:addEntity(flower, EntityTypes.FLOWER)
+    -- end
 
     for _, turnstile in pairs(turnstiles) do
         self.entityManager:addEntity(Turnstile(turnstile.row, turnstile.col, turnstile.orientation), EntityTypes.TURNSTILE)
@@ -132,9 +132,19 @@ function PlayState:setupLevel(level)
 
 end
 
-
 function PlayState:update(dt)
     self.entityManager:update(dt)
+
+    -- Check win condition
+
+    if #self.entityManager.flowers == 0 and #self.entityManager.letters == 0 then
+        gStateMachine:change(
+            "levelstart",
+            {
+                level = self.level + 1
+            }
+    )
+    end
 end
 
 function PlayState:draw()
@@ -177,11 +187,9 @@ function PlayState:enter(params)
     self.score = params.score or 0
     self.lives = params.lives or 3
 
-    self:setupLevel(1)
+    self:setupLevel(self.level)
 
     self.letterAwardedHandler = Event.on('letterAwarded', function(letter)
-        print("Letter awarded: " .. letter.letter)
-
         local score
 
         if letter.behavior.state == "red" then
@@ -263,4 +271,5 @@ function PlayState:exit()
     sounds['music']:stop()
     Timer.clear()
     self.deathHandler:remove()
+    self.letterAwardedHandler:remove()
 end
