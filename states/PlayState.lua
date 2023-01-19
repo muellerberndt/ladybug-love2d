@@ -27,6 +27,13 @@ function PlayState:update(dt)
     end
 end
 
+function PlayState:advanceMultiplier()
+    if self.multiplier == 1 then self.multiplier = 2
+    elseif self.multiplier == 2 then self.multiplier = 3
+    else self.multiplier = 5
+    end
+end
+
 function PlayState:draw()
 
     love.graphics.draw(gTextures['playfield'], 0, 0)
@@ -37,6 +44,12 @@ function PlayState:draw()
     love.graphics.print("SPECIAL", 9, 9)
     love.graphics.print("EXTRA", 81, 9)
     love.graphics.print("x2x3x5", 137, 9)
+
+    love.graphics.setColor(0, 0.68, 1, 1)
+
+    if self.multiplier >= 2 then love.graphics.print("x2", 137, 9) end
+    if self.multiplier >= 3 then love.graphics.print("x3", 153, 9) end
+    if self.multiplier >= 5 then love.graphics.print("x5", 169, 9) end
 
     if SHOW_TILES then
         for y, row in pairs(self.entityManager.tilemap) do
@@ -225,9 +238,13 @@ function PlayState:enter(params)
         end
 
         self.entityManager:addEntity(
-            PlayFieldScore(letter.x - 5, letter.y + 2, score),
+            PlayFieldScore(letter.x - 5, letter.y + 2, score, self.multiplier),
             EntityTypes.GAMEOBJECT
         )
+
+        if letter.letter == "heart" and letter.behavior.state == "default" then
+            self:advanceMultiplier()
+        end
 
         self:awardPoints(score)
 
@@ -239,6 +256,7 @@ function PlayState:enter(params)
         table.insert(self.trappedEnemies, enemy)
     end
     )
+
 
     self.deathHandler = Event.on('playerDeath', function(dt)
 

@@ -70,7 +70,7 @@ function love.load()
     love.keyboard.keyPressed = {}
 
     -- initialize our nice-looking retro text fonts
-    smallFont = love.graphics.newFont('assets/fonts/lady-bug.ttf', 6)
+    smallFont = love.graphics.newFont('assets/fonts/lady-bug.ttf', 7)
     largeFont = love.graphics.newFont('assets/fonts/lady-bug.ttf', 8)
 
     -- load up the graphics we'll be using throughout our states
