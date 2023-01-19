@@ -14,7 +14,7 @@ function Player:init()
     self.animation = anim8.newAnimation(g('1-3',1), 0.1)
 
     g = anim8.newGrid(16, 16, 224, 16)
-    self.deathAnimation = anim8.newAnimation(g('1-14', 1), 0.1, function()
+    self.deathAnimation = anim8.newAnimation(g('1-14', 1), 0.15, function()
         self.deathAnimation:pauseAtEnd()
         self.state = "goingtoheaven"
         self.tick = 0
@@ -22,7 +22,16 @@ function Player:init()
     end)
 
     self.state = "alive"
+    self.frozen = false
     self.orientation = Orientation.UP
+end
+
+function Player:freezeIfAlive()
+    self.frozen = true
+end
+
+function Player:unfreeze()
+    self.frozen = false
 end
 
 function Player:resetPosition()
@@ -36,12 +45,13 @@ function Player:resetPosition()
 end
 
 function Player:die()
+    sounds['playerdeath']:play()
     self.state = "dead"
 end
 
 function Player:update(dt)
 
-    if self.state == "alive" then
+    if self.state == "alive" and not self.frozen then
         self.lastX = self.x
         self.lastY = self.y
 
@@ -63,14 +73,14 @@ function Player:update(dt)
     elseif self.state == "dead" then
         self.deathAnimation:update(dt)
     elseif self.state == "goingtoheaven" then
-        self.tick = self.tick + dt * 5
+        self.tick = self.tick + dt
 
-        if self.tick > 12 then
+        if self.tick > 3.5 then
             Event.dispatch("playerDeath")
         end
 
-        self.x = self.baseX + 10 * math.sin(self.tick)
-        self.y = self.y - 20 * dt
+        self.x = self.baseX + 10 * math.sin(self.tick * 10)
+        self.y = self.y - 30 * dt
     end
 
     Entity.update(self)

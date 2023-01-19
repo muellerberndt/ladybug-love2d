@@ -21,6 +21,8 @@ function EntityManager:init()
 
     self.size = 0
 
+    self.gameFrozen = false
+
     self.tilemap = {}
 end
 
@@ -61,66 +63,79 @@ function EntityManager:updateTable(entityTable, dt)
 	end
 end
 
+function EntityManager:freezeGame()
+    self.gameFrozen = true
+    self.player:freezeIfAlive()
+end
+
+function EntityManager:unfreezeGame()
+    self.gameFrozen = false
+    self.player:unfreeze()
+end
+
 function EntityManager:update(dt)
+
 	if self.player then
 		self.player:update(dt)
 	end
 
-    for i,v in ipairs(self.walls) do
-		if v:collide(self.player) then
-			self.player:resetPosition()
-		end
-	end
+    if not self.gameFrozen then
 
-	self:updateTable(self.letters, dt)
-	self:updateTable(self.flowers, dt)
-
-    for _, t in pairs(self.turnstiles) do
-        local row, col = getTileForPosition(self.player.x, self.player.y)
-        t:update(
-            row,
-            col,
-            self.player.orientation
-        )
-    end
-
-    --- Update door positions based on turnstiles & their respective orientation
-
-    self.tilemap = deepcopy(tilemap)
-
-    for _, t in pairs(self.turnstiles) do
-        if t.orientation == "horizontal" then
-            self.tilemap[t.row][t.col - 1] = 2
-            self.tilemap[t.row][t.col + 1] = 2
-        else
-            self.tilemap[t.row - 1][t.col] = 2
-            self.tilemap[t.row + 1][t.col] = 2
+        for i,v in ipairs(self.walls) do
+            if v:collide(self.player) then
+                self.player:resetPosition()
+            end
         end
 
+        self:updateTable(self.letters, dt)
+        self:updateTable(self.flowers, dt)
+
+        for _, t in pairs(self.turnstiles) do
+            local row, col = getTileForPosition(self.player.x, self.player.y)
+            t:update(
+                row,
+                col,
+                self.player.orientation
+            )
+        end
+
+        --- Update door positions based on turnstiles & their respective orientation
+
+        self.tilemap = deepcopy(tilemap)
+
+        for _, t in pairs(self.turnstiles) do
+            if t.orientation == "horizontal" then
+                self.tilemap[t.row][t.col - 1] = 2
+                self.tilemap[t.row][t.col + 1] = 2
+            else
+                self.tilemap[t.row - 1][t.col] = 2
+                self.tilemap[t.row + 1][t.col] = 2
+            end
+
+        end
+
+        self:updateTable(self.enemies, dt)
+
+        for i,v in ipairs(self.enemies) do
+            if v:collide(self.player) and self.player.state == "alive" then
+                self.player:die()
+            end
+        end
+
+        for i,v in ipairs(self.flowers) do
+            if v:collide(self.player) then
+                v:onCollide()
+            end
+        end
+
+        for i,v in ipairs(self.letters) do
+            if v:collide(self.player) then
+                v:onCollide()
+            end
+        end
+
+        self:updateTable(self.gameObjects, dt)
     end
-
-	self:updateTable(self.enemies, dt)
-
-	for i,v in ipairs(self.enemies) do
-		if v:collide(self.player) and self.player.state == "alive" then
-			self.player:die()
-		end
-	end
-
-	for i,v in ipairs(self.flowers) do
-		if v:collide(self.player) then
-			v:onCollide()
-		end
-	end
-
-	for i,v in ipairs(self.letters) do
-		if v:collide(self.player) then
-			v:onCollide()
-		end
-	end
-
-	self:updateTable(self.gameObjects, dt)
-
 end
 
 function EntityManager:drawTable(entityTable)

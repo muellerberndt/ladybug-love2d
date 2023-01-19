@@ -81,18 +81,18 @@ function PlayState:setupLevel(level)
         table.remove(available_tiles, idx)
     end
 
-    -- for i, tile in pairs(available_tiles) do
-    --     local row = available_tiles[i][1]
-    --     local col = available_tiles[i][2]
+    for i, tile in pairs(available_tiles) do
+        local row = available_tiles[i][1]
+        local col = available_tiles[i][2]
 
-    --     local x, y = getPositionForTile(row, col)
+        local x, y = getPositionForTile(row, col)
 
-    --     local flower = Flower(
-    --         x + 2,
-    --         y + 2
-    --     )
-    --     self.entityManager:addEntity(flower, EntityTypes.FLOWER)
-    -- end
+        local flower = Flower(
+            x + 2,
+            y + 2
+        )
+        self.entityManager:addEntity(flower, EntityTypes.FLOWER)
+    end
 
     for _, turnstile in pairs(turnstiles) do
         self.entityManager:addEntity(Turnstile(turnstile.row, turnstile.col, turnstile.orientation), EntityTypes.TURNSTILE)
@@ -138,6 +138,7 @@ function PlayState:update(dt)
     -- Check win condition
 
     if #self.entityManager.flowers == 0 and #self.entityManager.letters == 0 then
+        sounds['stageclear']:play()
         gStateMachine:change(
             "levelstart",
             {
@@ -190,6 +191,9 @@ function PlayState:enter(params)
     self:setupLevel(self.level)
 
     self.letterAwardedHandler = Event.on('letterAwarded', function(letter)
+
+        self:freeze(0.25)
+
         local score
 
         if letter.behavior.state == "red" then
@@ -245,21 +249,8 @@ function PlayState:enter(params)
 
         self.tick = 0
 
-        Timer.every(data.tick, function()
-            self.tick = self.tick + 1
-    
-            if (self.tick == 82 or self.tick == 174) and #self.trappedEnemies > 0 then
-                sounds['enemylaunch']:play()
-            end
-            if (self.tick == 92 or self.tick == 184) and #self.trappedEnemies > 0 then
-                local idx = #self.trappedEnemies
-                self.trappedEnemies[idx].state = "roaming"
-                table.remove(self.trappedEnemies, idx)
-            end
-            if self.tick == 184 then
-                self.tick = 0
-            end
-        end)
+        self:startClockTick()
+
     end)
 
 
@@ -276,4 +267,36 @@ function PlayState:exit()
     Timer.clear()
     self.deathHandler:remove()
     self.letterAwardedHandler:remove()
+end
+
+
+function PlayState:startClockTick()
+
+    local data = LevelData[self.level]
+
+    Timer.every(data.tick, function()
+        self.tick = self.tick + 1
+
+        if (self.tick == 82 or self.tick == 174) and #self.trappedEnemies > 0 then
+            sounds['enemylaunch']:play()
+        end
+        if (self.tick == 92 or self.tick == 184) and #self.trappedEnemies > 0 then
+            local idx = #self.trappedEnemies
+            self.trappedEnemies[idx].state = "roaming"
+            table.remove(self.trappedEnemies, idx)
+        end
+        if self.tick == 184 then
+            self.tick = 0
+        end
+    end)
+end
+
+function PlayState:freeze(seconds)
+    Timer.clear()
+    self.entityManager:freezeGame()
+    Timer.after(seconds, function()
+        self.entityManager:unfreezeGame()
+        self:startClockTick()
+    end)
+
 end

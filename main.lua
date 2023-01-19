@@ -47,8 +47,6 @@ WINDOW_HEIGHT = 960
 VIRTUAL_WIDTH = 192
 VIRTUAL_HEIGHT = 240
 
-local paused = false
-
 PLAY_MUSIC = false
 PLAYER_SPEED = 70
 
@@ -57,6 +55,7 @@ PLAYER_SPEED = 70
 SHOW_HITBOXES = false
 SHOW_TILES = false
 
+local paused = false
 
 function love.load()
     -- initialize our nearest-neighbor filter
@@ -101,6 +100,8 @@ function love.load()
         ['eatdot'] = love.audio.newSource('assets/sounds/eatdot.wav', 'static'),
         ['eatitem'] = love.audio.newSource('assets/sounds/eatitem.wav', 'static'),
         ['enemylaunch'] = love.audio.newSource('assets/sounds/enemylaunch.wav', 'static'),
+        ['stageclear'] = love.audio.newSource('assets/sounds/stageclear.wav', 'static'),
+        ['playerdeath'] = love.audio.newSource('assets/sounds/playerdeath.wav', 'static'),
         ['music'] = love.audio.newSource('assets/music/8_Bit_Retro_Funk_David_Renda.mp3', 'static')
     }
 

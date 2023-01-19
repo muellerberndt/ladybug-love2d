@@ -6,9 +6,9 @@ function PlayFieldScore:init(x, y, score)
     self.yScale = 1
     self.score = score
 
-    Timer.tween(0.5, {
+    Timer.tween(0.4, {
         [self] = {
-            y = y - 10
+            y = y - 15
     }
     }):finish(function() 
         self.isDestroyed = true
