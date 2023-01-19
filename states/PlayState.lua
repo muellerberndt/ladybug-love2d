@@ -223,6 +223,10 @@ function PlayState:enter(params)
 
         self.lives = self.lives - 1
 
+        if self.lives == 0 then
+            gStateMachine:change("title")
+        end
+
         self.entityManager:addEntity(Player(), EntityTypes.PLAYER)
 
         self.trappedEnemies = {}
