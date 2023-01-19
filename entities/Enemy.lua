@@ -217,6 +217,8 @@ function Enemy:reset()
 
     self.movedBy = 0
 
+    sounds['die']:play()
+
     Event.dispatch("enemyTrapped", self)
 
 end

@@ -274,6 +274,10 @@ function PlayState:enter(params)
             table.insert(self.trappedEnemies, enemy)
         end
 
+        if PLAY_MUSIC then
+            sounds['music']:play()
+        end
+
         self.tick = 0
 
         self:startClockTick()

@@ -14,7 +14,7 @@ function Player:init()
     self.animation = anim8.newAnimation(g('1-3',1), 0.1)
 
     g = anim8.newGrid(16, 16, 224, 16)
-    self.deathAnimation = anim8.newAnimation(g('1-14', 1), 0.15, function()
+    self.deathAnimation = anim8.newAnimation(g('1-14', 1), 0.1, function()
         self.deathAnimation:pauseAtEnd()
         self.state = "goingtoheaven"
         self.tick = 0
@@ -45,7 +45,8 @@ function Player:resetPosition()
 end
 
 function Player:die()
-    sounds['playerdeath']:play()
+    sounds['die']:play()
+    -- sounds['playerdeath']:play()
     self.state = "dead"
 end
 
@@ -75,11 +76,11 @@ function Player:update(dt)
     elseif self.state == "goingtoheaven" then
         self.tick = self.tick + dt
 
-        if self.tick > 3.5 then
+        if self.tick > 2 then
             Event.dispatch("playerDeath")
         end
 
-        self.x = self.baseX + 10 * math.sin(self.tick * 10)
+        self.x = self.baseX + 15 * math.sin(self.tick * 10)
         self.y = self.y - 30 * dt
     end
 

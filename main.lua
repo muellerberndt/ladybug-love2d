@@ -47,7 +47,7 @@ WINDOW_HEIGHT = 960
 VIRTUAL_WIDTH = 192
 VIRTUAL_HEIGHT = 240
 
-PLAY_MUSIC = false
+PLAY_MUSIC = true
 PLAYER_SPEED = 70
 
 -- Debug flags
@@ -105,6 +105,7 @@ function love.load()
         ['enemylaunch'] = love.audio.newSource('assets/sounds/enemylaunch.wav', 'static'),
         ['stageclear'] = love.audio.newSource('assets/sounds/stageclear.wav', 'static'),
         ['playerdeath'] = love.audio.newSource('assets/sounds/playerdeath.wav', 'static'),
+        ['die'] = love.audio.newSource('assets/sounds/die.wav', 'static'),
         ['music'] = love.audio.newSource('assets/music/8_Bit_Retro_Funk_David_Renda.mp3', 'static')
     }
 
