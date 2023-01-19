@@ -77,7 +77,7 @@ function Turnstile:update(playerRow, playerColumn, playerOrientation)
             end
         end
     elseif self.orientation == "vertical" then
-        if playerColumn == self.col and (playerRow >= self.row -2 and playerRow <= self.row -1) then
+        if playerColumn == self.col and (playerRow >= self.row -2 and playerRow <= self.row - 1) then
             if playerOrientation == Orientation.LEFT then
                 -- self:switchToHorizontal()
                 -- self.state = "still"

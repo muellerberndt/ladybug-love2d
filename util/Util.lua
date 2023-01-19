@@ -1,9 +1,9 @@
 function getTileForPosition(x, y)
-    local row = math.floor((y - 15) / 8) + 1
-    local col = math.floor(x / 8) + 1
+    -- local row = math.floor((y - 15) / 8) + 1
+    -- local col = math.floor(x / 8) + 1
 
-    -- local row = math.floor((y - 21) / 8) + 1
-    -- local col = math.floor((x - 3) / 8) + 1
+    local row = math.floor((y - 14) / 8) + 1
+    local col = math.floor((x + 3) / 8) + 1
 
     return row, col
 end
