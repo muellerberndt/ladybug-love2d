@@ -1,7 +1,7 @@
 LevelStartState = Class{__includes = BaseState}
 
-function LevelStartState:init()
-    self.level = 1
+function LevelStartState:init(level)
+    self.level = level or 1
 end
 
 function LevelStartState:update(dt)
@@ -9,7 +9,7 @@ end
 
 function LevelStartState:draw()
     love.graphics.setFont(largeFont)
-    love.graphics.print("Level " .. self.level .. " start!", 30, 100)
+    love.graphics.print("Level " .. self.level .. " start!", 40, 100)
 end
 
 function LevelStartState:enter(params)

@@ -6,10 +6,10 @@ function Letter:init(x, y, letter)
     self.letter = letter
 
     self.hitbox = {
-        x1 = x,
-        x2 = x + 3,
-        y1 = y,
-        y2 = y + 3
+        x1 = x + 1,
+        x2 = x + 8,
+        y1 = y + 1,
+        y2 = y + 8
     }
 
     local states = {
