@@ -1,6 +1,7 @@
 LevelStartState = Class{__includes = BaseState}
 
 function LevelStartState:init()
+    self.transitionAlpha = 0
 end
 
 function LevelStartState:update(dt)
@@ -10,6 +11,11 @@ function LevelStartState:draw()
     love.graphics.setFont(largeFont)
     love.graphics.print("Level " .. self.level .. " start!", 42, 100)
     love.graphics.print(self.extraLetter.. " - ".. self.specialLetter .. " - " .. self.commonLetter, 59, 120)
+
+    if self.transitionAlpha > 0 then
+        love.graphics.setColor(0, 0, 0, self.transitionAlpha)
+        love.graphics.rectangle("fill", 0, 0, 180, 240)
+    end
 end
 
 function LevelStartState:enter(params)
@@ -25,7 +31,12 @@ function LevelStartState:enter(params)
     self.nSkulls = love.math.random(3)
 
     Timer.after(2, function()
-        gStateMachine:change('play',
+        Timer.tween(0.5, {
+            [self] = {
+                transitionAlpha = 1
+            }
+        }):finish(function()
+            gStateMachine:change('play',
             {
                 level = self.level,
                 score = self.score,
@@ -35,6 +46,8 @@ function LevelStartState:enter(params)
                 commonLetter = self.commonLetter,
                 nSkulls = self.nSkulls
             })
+        end
+        )
     end)
 end
 

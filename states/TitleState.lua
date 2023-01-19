@@ -5,7 +5,7 @@ function TitleState:init()
 end
 
 function TitleState:update(dt)
-    if love.keyboard.isDown('return') then
+    if love.keyboard.keyPressed['return'] then
         gStateMachine:change('levelstart',
             {
                 level = 1,

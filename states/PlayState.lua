@@ -2,6 +2,7 @@ PlayState = Class{__includes = BaseState}
 
 
 function PlayState:init()
+    self.transitionAlpha = 1
 end
 
 function PlayState:reset()
@@ -56,6 +57,14 @@ function PlayState:draw()
     love.graphics.print("x ".. math.floor(self.entityManager.player.x) .. " y ".. math.floor(self.entityManager.player.y) .. " R ".. row .." C ".. col, 10, 10)
 
     self.entityManager:draw()
+
+    love.graphics.setFont(largeFont)
+    love.graphics.printf(self.score, 90, 210, 101, "right" )
+
+    if self.transitionAlpha > 0 then
+        love.graphics.setColor(0, 0, 0, self.transitionAlpha)
+        love.graphics.rectangle("fill", 0, 0, 180, 240)
+    end
 end
 
 --[[
@@ -69,6 +78,8 @@ function PlayState:enter(params)
     local specialLetter = params.specialLetter
     local commonLetter = params.commonLetter
     local nSkulls = params.nSkulls
+
+    self.multiplier = 1
 
     -- Set up the level
 
@@ -137,18 +148,18 @@ function PlayState:enter(params)
         table.remove(available_tiles, idx)
     end
 
-    -- for i, tile in pairs(available_tiles) do
-    --     local row = available_tiles[i][1]
-    --     local col = available_tiles[i][2]
+    for i, tile in pairs(available_tiles) do
+        local row = available_tiles[i][1]
+        local col = available_tiles[i][2]
 
-    --     local x, y = getPositionForTile(row, col)
+        local x, y = getPositionForTile(row, col)
 
-    --     local flower = Flower(
-    --         x + 2,
-    --         y + 2
-    --     )
-    --     self.entityManager:addEntity(flower, EntityTypes.FLOWER)
-    -- end
+        local flower = Flower(
+            x + 2,
+            y + 2
+        )
+        self.entityManager:addEntity(flower, EntityTypes.FLOWER)
+    end
 
     for _, turnstile in pairs(turnstiles) do
         self.entityManager:addEntity(Turnstile(turnstile.row, turnstile.col, turnstile.orientation), EntityTypes.TURNSTILE)
@@ -186,6 +197,12 @@ function PlayState:enter(params)
         end
     end)
 
+    self.awardPointsHandler = Event.on('awardPoints', function(points)
+
+        self:awardPoints(points)
+    end
+    )
+
     self.letterAwardedHandler = Event.on('letterAwarded', function(letter)
 
         self:freeze(0.25)
@@ -205,11 +222,13 @@ function PlayState:enter(params)
             EntityTypes.GAMEOBJECT
         )
 
+        self:awardPoints(score)
+
         letter:destroy()
     end
     )
 
-    self.enemyTrappedHandler = Event.on('enemytrapped', function(enemy)
+    self.enemyTrappedHandler = Event.on('enemyTrapped', function(enemy)
         table.insert(self.trappedEnemies, enemy)
     end
     )
@@ -254,10 +273,15 @@ function PlayState:enter(params)
 
     end)
 
-
     if PLAY_MUSIC then
         sounds['music']:play()
     end
+
+    Timer.tween(0.5, {
+        [self] = {
+            transitionAlpha = 0
+        }
+    })
 end
 
 --[[
@@ -269,8 +293,14 @@ function PlayState:exit()
     self.deathHandler:remove()
     self.letterAwardedHandler:remove()
     self.enemyTrappedHandler:remove()
+    self.awardPointsHandler:remove()
 end
 
+
+function PlayState:awardPoints(points)
+    print("Award " .. points .. " x " .. self.multiplier)
+    self.score = self.score + points * self.multiplier
+end
 
 function PlayState:startClockTick()
 

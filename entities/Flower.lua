@@ -14,7 +14,7 @@ end
 function Flower:onCollide()
     sounds['eatdot']:stop()
     sounds['eatdot']:play()
-    Event.dispatch('awardPoints', 50)
+    Event.dispatch('awardPoints', 10)
     self:destroy()
 end
 

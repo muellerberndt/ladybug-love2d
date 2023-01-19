@@ -53,7 +53,7 @@ PLAYER_SPEED = 70
 -- Debug flags
 
 SHOW_HITBOXES = false
-SHOW_TILES = true
+SHOW_TILES = false
 
 local paused = false
 
@@ -66,6 +66,8 @@ function love.load()
 
     -- app window title
     love.window.setTitle('Lady Bug')
+
+    love.keyboard.keyPressed = {}
 
     -- initialize our nice-looking retro text fonts
     smallFont = love.graphics.newFont('assets/fonts/lady-bug.ttf', 6)
@@ -135,6 +137,10 @@ function love.update(dt)
 
 end
 
+function love.keypressed(key)
+    love.keyboard.keyPressed[key] = true
+end
+
 function love.draw()
     push:start()
 
@@ -146,4 +152,6 @@ function love.draw()
     end
 
     push:finish()
+
+    love.keyboard.keyPressed = {}
 end

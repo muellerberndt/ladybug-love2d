@@ -203,6 +203,10 @@ end
 function Enemy:reset()
     self.x = 11 * 8
     self.y = 16 + 11 * 8
+
+    self.desiredX = self.x
+    self.desiredY = self.y
+
     self.orientation = Orientation.UP
     self.state = "trapped"
 
@@ -213,7 +217,7 @@ function Enemy:reset()
 
     self.movedBy = 0
 
-    Event.dispatch("enemytrapped", self)
+    Event.dispatch("enemyTrapped", self)
 
 end
 
