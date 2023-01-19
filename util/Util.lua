@@ -15,6 +15,16 @@ function getPositionForTile(row, col)
     return x, y
 end
 
+function table.contains(tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+
+    return false
+end
+
 function table.shallow_copy(t)
     local t2 = {}
     for k,v in pairs(t) do

@@ -10,7 +10,9 @@ function TitleState:update(dt)
             {
                 level = 1,
                 score = 0,
-                lives = 3
+                lives = 3,
+                extraLettersLit = {},
+                specialLettersLit = {}
             })
     end
 end

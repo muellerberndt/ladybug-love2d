@@ -30,6 +30,9 @@ function LevelStartState:enter(params)
     self.commonLetter = COMMON_LETTERS[love.math.random(#COMMON_LETTERS)]
     self.nSkulls = love.math.random(3)
 
+    self.extraLettersLit = table.shallow_copy(params.extraLettersLit)
+    self.specialLettersLit = table.shallow_copy(params.specialLettersLit)
+
     Timer.after(2, function()
         Timer.tween(0.5, {
             [self] = {
@@ -44,7 +47,9 @@ function LevelStartState:enter(params)
                 extraLetter = self.extraLetter,
                 specialLetter = self.specialLetter,
                 commonLetter = self.commonLetter,
-                nSkulls = self.nSkulls
+                nSkulls = self.nSkulls,
+                extraLettersLit = self.extraLettersLit,
+                specialLettersLit = self.specialLettersLit
             })
         end
         )

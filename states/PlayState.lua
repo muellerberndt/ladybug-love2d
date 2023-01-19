@@ -21,7 +21,9 @@ function PlayState:update(dt)
             {
                 level = self.level + 1,
                 score = self.score,
-                lives = self.lives ,
+                lives = self.lives,
+                extraLettersLit = self.extraLettersLit,
+                specialLettersLit = self.specialLettersLit
             }
     )
     end
@@ -50,6 +52,22 @@ function PlayState:draw()
     if self.multiplier >= 2 then love.graphics.print("x2", 137, 9) end
     if self.multiplier >= 3 then love.graphics.print("x3", 153, 9) end
     if self.multiplier >= 5 then love.graphics.print("x5", 169, 9) end
+
+    love.graphics.setColor(1, 1, 0, 1)
+
+    for i, letter in ipairs({'e', 'x', 't', 'r', 'a'}) do
+        if self.extraLettersLit[letter] then
+            love.graphics.print(letter, 73 + i * 8, 9)
+        end
+    end
+
+    love.graphics.setColor(1, 0.32, 0, 1)
+
+    for i, letter in ipairs({'s', 'p', 'e', 'c', 'i', 'a', 'l'}) do
+        if self.specialLettersLit[letter] then
+            love.graphics.print(letter, 1 + i * 8, 9)
+        end
+    end
 
     if SHOW_TILES then
         for y, row in pairs(self.entityManager.tilemap) do
@@ -98,6 +116,9 @@ function PlayState:enter(params)
     local specialLetter = params.specialLetter
     local commonLetter = params.commonLetter
     local nSkulls = params.nSkulls
+
+    self.extraLettersLit = params.extraLettersLit
+    self.specialLettersLit = params.specialLettersLit
 
     self.multiplier = 1
 
@@ -168,18 +189,18 @@ function PlayState:enter(params)
         table.remove(available_tiles, idx)
     end
 
-    for i, tile in pairs(available_tiles) do
-        local row = available_tiles[i][1]
-        local col = available_tiles[i][2]
+    -- for i, tile in pairs(available_tiles) do
+    --     local row = available_tiles[i][1]
+    --     local col = available_tiles[i][2]
 
-        local x, y = getPositionForTile(row, col)
+    --     local x, y = getPositionForTile(row, col)
 
-        local flower = Flower(
-            x + 2,
-            y + 2
-        )
-        self.entityManager:addEntity(flower, EntityTypes.FLOWER)
-    end
+    --     local flower = Flower(
+    --         x + 2,
+    --         y + 2
+    --     )
+    --     self.entityManager:addEntity(flower, EntityTypes.FLOWER)
+    -- end
 
     for _, turnstile in pairs(turnstiles) do
         self.entityManager:addEntity(Turnstile(turnstile.row, turnstile.col, turnstile.orientation), EntityTypes.TURNSTILE)
@@ -244,6 +265,12 @@ function PlayState:enter(params)
 
         if letter.letter == "heart" and letter.behavior.state == "default" then
             self:advanceMultiplier()
+        end
+
+        if table.contains({'e', 'x', 't', 'r', 'a'}, letter.letter) and letter.behavior.state == "yellow" then
+            self.extraLettersLit[letter.letter] = true
+        elseif table.contains({'s', 'p', 'e', 'c', 'i', 'a', 'l'}, letter.letter) and letter.behavior.state == "red" then
+            self.specialLettersLit[letter.letter] = true
         end
 
         self:awardPoints(score)

@@ -122,6 +122,7 @@ function love.load()
         ['levelstart'] = function () return LevelStartState() end,
         ['play'] = function() return PlayState() end,
     }
+
     gStateMachine:change('title')
 end
 
