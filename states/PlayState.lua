@@ -12,7 +12,7 @@ end
 function PlayState:update(dt)
     self.entityManager:update(dt)
 
-    -- Check win condition
+    -- Check win conditions
 
     if #self.entityManager.flowers == 0 and #self.entityManager.letters == 0 then
         sounds['stageclear']:play()
@@ -27,6 +27,38 @@ function PlayState:update(dt)
             }
     )
     end
+
+    local collected = 0
+
+    for letter, status in pairs(self.extraLettersLit) do
+        if status == true then
+            collected = collected + 1
+        end
+    end
+
+    print("Extra letters collected: " .. collected)
+
+    if collected == 5 then
+        gStateMachine:change('extralife',
+            {
+                level = self.level,
+                score = self.score,
+                slives = self.lives,
+                specialLettersLit = self.specialLettersLit
+            })
+    end
+
+    collected = 0
+
+    for letter, status in pairs(self.specialLettersLit) do
+        if status == true then
+            collected = collected + 1
+        end
+    end
+
+
+
+
 end
 
 function PlayState:advanceMultiplier()

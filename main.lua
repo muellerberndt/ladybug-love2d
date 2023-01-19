@@ -121,6 +121,7 @@ function love.load()
         ['title'] = function() return TitleState() end,
         ['levelstart'] = function () return LevelStartState() end,
         ['play'] = function() return PlayState() end,
+        ['extralife'] = function() return ExtraLifeState() end,
     }
 
     gStateMachine:change('title')
