@@ -24,7 +24,7 @@ LevelData = {
         fruitName = "Cucumber",
         fruitFile = "assets/graphcs/cucumber.png",
         fruitScore = 1000,
-        tick = 0.15,
+        tick = 0.1,
         enemySpeed = 50
     },
     {
@@ -37,7 +37,7 @@ LevelData = {
         fruitName = "Cucumber",
         fruitFile = "assets/graphcs/cucumber.png",
         fruitScore = 1000,
-        tick = 0.1,
+        tick = 0.3,
         enemySpeed = 70
     },
     {
@@ -50,7 +50,7 @@ LevelData = {
         fruitName = "Cucumber",
         fruitFile = "assets/graphcs/cucumber.png",
         fruitScore = 1000,
-        tick = 0.08,
+        tick = 0.2,
         enemySpeed = 100
     },
     {

@@ -209,6 +209,11 @@ function PlayState:enter(params)
     end
     )
 
+    self.enemyTrappedHandler = Event.on('enemytrapped', function(enemy)
+        table.insert(self.trappedEnemies, enemy)
+    end
+    )
+
     self.deathHandler = Event.on('playerDeath', function(dt)
 
         Timer.clear()
@@ -263,6 +268,7 @@ function PlayState:exit()
     Timer.clear()
     self.deathHandler:remove()
     self.letterAwardedHandler:remove()
+    self.enemyTrappedHandler:remove()
 end
 
 

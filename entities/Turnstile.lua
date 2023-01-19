@@ -26,11 +26,10 @@ function Turnstile:update(playerRow, playerColumn, playerOrientation)
 
     if self.orientation == "horizontal" then
         if playerRow == self.row and (playerColumn >= self.col - 2 and playerColumn <= self.col -1) then
-            sounds['turnstile']:play()
-
-            self.state = "rotating"
 
             if playerOrientation == Orientation.UP then
+                sounds['turnstile']:play()
+                self.state = "rotating"
                 self.rotation = 0
                 Timer.tween(0.1, {
                     [self] = {rotation = math.pi / 2}
@@ -40,6 +39,8 @@ function Turnstile:update(playerRow, playerColumn, playerOrientation)
                 end
                 )
             elseif playerOrientation == Orientation.DOWN then
+                sounds['turnstile']:play()
+                self.state = "rotating"
                 self.rotation = 0
                 Timer.tween(0.1, {
                     [self] = {rotation = - math.pi / 2 }
@@ -50,11 +51,10 @@ function Turnstile:update(playerRow, playerColumn, playerOrientation)
                 )
             end
         elseif playerRow == self.row and (playerColumn >= self.col and playerColumn <= self.col + 1) then
-            sounds['turnstile']:play()
-
-            self.state = "rotating"
 
             if playerOrientation == Orientation.UP then
+                sounds['turnstile']:play()
+                self.state = "rotating"
                 self.rotation = 0
                 Timer.tween(0.1, {
                     [self] = {rotation = - math.pi / 2}
@@ -64,6 +64,8 @@ function Turnstile:update(playerRow, playerColumn, playerOrientation)
                 end
                 )
             elseif playerOrientation == Orientation.DOWN then
+                sounds['turnstile']:play()
+                self.state = "rotating"
                 self.rotation = 0
                 Timer.tween(0.1, {
                     [self] = {rotation = math.pi / 2 }
@@ -76,11 +78,11 @@ function Turnstile:update(playerRow, playerColumn, playerOrientation)
         end
     elseif self.orientation == "vertical" then
         if playerColumn == self.col and (playerRow >= self.row -2 and playerRow <= self.row -1) then
-            sounds['turnstile']:play()
-            self.state = "rotating"
             if playerOrientation == Orientation.LEFT then
                 -- self:switchToHorizontal()
                 -- self.state = "still"
+                sounds['turnstile']:play()
+                self.state = "rotating"
                 self.rotation = math.pi / 2
                 Timer.tween(0.1, {
                     [self] = {rotation = 0}
@@ -91,6 +93,8 @@ function Turnstile:update(playerRow, playerColumn, playerOrientation)
             elseif playerOrientation == Orientation.RIGHT then
                 -- self:switchToHorizontal()
                 -- self.state = "still"
+                sounds['turnstile']:play()
+                self.state = "rotating"
                 self.rotation = - math.pi / 2
                 Timer.tween(0.1, {
                     [self] = {rotation = 0}
@@ -100,9 +104,9 @@ function Turnstile:update(playerRow, playerColumn, playerOrientation)
                 end)
             end
         elseif playerColumn == self.col and (playerRow >= self.row and playerRow <= self.row + 1) then
-            sounds['turnstile']:play()
-            self.state = "rotating"
             if playerOrientation == Orientation.LEFT then
+                sounds['turnstile']:play()
+                self.state = "rotating"
                 self.rotation = - math.pi / 2
                 Timer.tween(0.1, {
                     [self] = {rotation = 0}
@@ -113,6 +117,8 @@ function Turnstile:update(playerRow, playerColumn, playerOrientation)
             elseif playerOrientation == Orientation.RIGHT then
                 -- self:switchToHorizontal()
                 -- self.state = "still"
+                sounds['turnstile']:play()
+                self.state = "rotating"
                 self.rotation = math.pi / 2
                 Timer.tween(0.1, {
                     [self] = {rotation = 0}

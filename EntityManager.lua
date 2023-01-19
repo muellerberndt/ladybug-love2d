@@ -81,22 +81,42 @@ function EntityManager:update(dt)
 
     if not self.gameFrozen then
 
-        for i,v in ipairs(self.walls) do
-            if v:collide(self.player) then
-                self.player:resetPosition()
+        if self.player.state == "alive" then
+
+            for i,v in ipairs(self.walls) do
+                if v:collide(self.player) then
+                    self.player:resetPosition()
+                end
             end
-        end
 
-        self:updateTable(self.letters, dt)
-        self:updateTable(self.flowers, dt)
+            for i,v in ipairs(self.enemies) do
+                if v:collide(self.player) and self.player.state == "alive" then
+                    self.player:die()
+                end
+            end
 
-        for _, t in pairs(self.turnstiles) do
-            local row, col = getTileForPosition(self.player.x, self.player.y)
-            t:update(
-                row,
-                col,
-                self.player.orientation
-            )
+            for i,v in ipairs(self.flowers) do
+                if v:collide(self.player) then
+                    v:onCollide()
+                end
+            end
+
+            for _, t in pairs(self.turnstiles) do
+                local row, col = getTileForPosition(self.player.x, self.player.y)
+                t:update(
+                    row,
+                    col,
+                    self.player.orientation
+                )
+            end
+
+            for i,v in ipairs(self.gameObjects) do
+                if v.type == "skull" and v:collide(self.player) then
+                    v:destroy()
+                    self.player:die()
+                end
+            end
+
         end
 
         --- Update door positions based on turnstiles & their respective orientation
@@ -111,20 +131,18 @@ function EntityManager:update(dt)
                 self.tilemap[t.row - 1][t.col] = 2
                 self.tilemap[t.row + 1][t.col] = 2
             end
-
         end
 
+        self:updateTable(self.letters, dt)
+        self:updateTable(self.flowers, dt)
         self:updateTable(self.enemies, dt)
 
-        for i,v in ipairs(self.enemies) do
-            if v:collide(self.player) and self.player.state == "alive" then
-                self.player:die()
-            end
-        end
-
-        for i,v in ipairs(self.flowers) do
-            if v:collide(self.player) then
-                v:onCollide()
+        for i,e in ipairs(self.enemies) do
+            for i,v in ipairs(self.gameObjects) do
+                if v.type == "skull" and v:collide(e) then
+                    v:destroy()
+                    e:reset()
+                end
             end
         end
 

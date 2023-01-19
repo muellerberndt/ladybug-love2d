@@ -200,10 +200,26 @@ function Enemy:draw()
     Entity.draw(self)
 end
 
-function Enemy:onDestroy()
+function Enemy:reset()
+    self.x = 11 * 8
+    self.y = 16 + 11 * 8
+    self.orientation = Orientation.UP
+    self.state = "trapped"
+
+    self.hitbox.x1 = self.x + 2
+    self.hitbox.x2 = self.x + 14
+    self.hitbox.y1 = self.y + 2
+    self.hitbox.y2 = self.y + 14
+
+    self.movedBy = 0
+
+    Event.dispatch("enemytrapped", self)
+
 end
 
-function Enemy:onHit(entity)
+function Enemy:destroy()
+    self.isDestroyed = true
 end
+
 
 return Enemy

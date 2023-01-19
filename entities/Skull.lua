@@ -3,6 +3,8 @@ Skull = Class{__includes = Entity}
 function Skull:init(x, y)
     Entity.init(self, x, y)
 
+    self.type = "skull"
+
     self.hitbox = {
         x1 = x,
         x2 = x + 3,
@@ -12,9 +14,6 @@ function Skull:init(x, y)
 end
 
 function Skull:destroy()
-    sounds['eatdot']:stop()
-    sounds['eatdot']:play()
-
     Entity.destroy(self)
 end
 
