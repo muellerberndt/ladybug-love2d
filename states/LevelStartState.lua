@@ -14,7 +14,7 @@ function LevelStartState:draw()
 
     if self.transitionAlpha > 0 then
         love.graphics.setColor(0, 0, 0, self.transitionAlpha)
-        love.graphics.rectangle("fill", 0, 0, 180, 240)
+        love.graphics.rectangle("fill", 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT)
     end
 end
 
