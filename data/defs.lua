@@ -8,6 +8,9 @@ EnemyTypes = {
     MANTIS = {
         spritesheet = 'assets/graphics/mantis.png'
     },
+    IDONTKNOW = {
+        spritesheet = 'assets/graphics/idontknow.png'
+    },
     SCARAB = {
         spritesheet = 'assets/graphics/scarab.png'
     }
@@ -16,10 +19,14 @@ EnemyTypes = {
 LevelData = {
     {
         enemies = {
-            EnemyTypes.BEETLE,
-            EnemyTypes.BEETLE,
-            EnemyTypes.BEETLE,
-            EnemyTypes.BEETLE,
+            EnemyTypes.IDONTKNOW,
+            EnemyTypes.IDONTKNOW,
+            EnemyTypes.IDONTKNOW,
+            EnemyTypes.IDONTKNOW,
+            -- EnemyTypes.BEETLE,
+            -- EnemyTypes.BEETLE,
+            -- EnemyTypes.BEETLE,
+            -- EnemyTypes.BEETLE,
         },
         fruitName = "Cucumber",
         fruitFile = "assets/graphcs/cucumber.png",
@@ -52,6 +59,19 @@ LevelData = {
         fruitScore = 1000,
         tick = 0.2,
         enemySpeed = 100
+    },
+    {
+        enemies = {
+            EnemyTypes.IDONTKNOW,
+            EnemyTypes.IDONTKNOW,
+            EnemyTypes.IDONTKNOW,
+            EnemyTypes.IDONTKNOW,
+        },
+        fruitName = "Cucumber",
+        fruitFile = "assets/graphcs/cucumber.png",
+        fruitScore = 1000,
+        tick = 0.1,
+        enemySpeed = 120
     },
     {
         enemies = {
