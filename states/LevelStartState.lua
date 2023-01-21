@@ -9,8 +9,38 @@ end
 
 function LevelStartState:draw()
     love.graphics.setFont(largeFont)
-    love.graphics.print("Level " .. self.level .. " start!", 42, 100)
-    love.graphics.print(self.extraLetter.. " - ".. self.specialLetter .. " - " .. self.commonLetter, 59, 120)
+    love.graphics.setColor(0, 0.68, 1, 1)
+    love.graphics.printf("PART " .. self.level, 46, 50, 100, "center")
+
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.draw(love.graphics.newImage(LevelData[self.level].fruitFile), 63, 68)
+
+    love.graphics.setColor(0, 1, 0, 1)
+    love.graphics.printf(" =" .. LevelData[self.level].fruitScore, 46, 75, 100, "center")
+
+    love.graphics.setColor(1, 1, 0, 1)
+    love.graphics.printf(LevelData[self.level].fruitName, 46, 92, 100, "center")
+
+    love.graphics.setColor(1, 1, 1, 1)
+
+    for i=0, self.nSkulls, 1 do
+        love.graphics.draw(gTextures['skull'], VIRTUAL_WIDTH / 2 - (8 * self.nSkulls) + i * 16 - 8, 112)
+    end
+
+    local quad = love.graphics.newQuad(0, 0, 9, 9, 27, 9)
+
+    love.graphics.draw(gTextures[self.extraLetter], quad, 72, 138)
+    love.graphics.draw(gTextures[self.specialLetter], quad, 88, 138)
+    love.graphics.draw(gTextures[self.commonLetter], quad, 104, 138)
+
+    love.graphics.draw(gTextures["heart"], quad, 72, 164)
+    love.graphics.draw(gTextures["heart"], quad, 88, 164)
+    love.graphics.draw(gTextures["heart"], quad, 104, 164)
+
+    --  love.graphics.print(self.extraLetter.. " - ".. self.specialLetter .. " - " .. self.commonLetter, 59, 120)
+
+    love.graphics.setColor(1, 0.32, 0, 1)
+    love.graphics.printf("GOOD LUCK", 46, 188, 100, "center")
 
     if self.transitionAlpha > 0 then
         love.graphics.setColor(0, 0, 0, self.transitionAlpha)
