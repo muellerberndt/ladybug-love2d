@@ -221,18 +221,18 @@ function PlayState:enter(params)
         table.remove(available_tiles, idx)
     end
 
-    -- for i, tile in pairs(available_tiles) do
-    --     local row = available_tiles[i][1]
-    --     local col = available_tiles[i][2]
+    for i, tile in pairs(available_tiles) do
+        local row = available_tiles[i][1]
+        local col = available_tiles[i][2]
 
-    --     local x, y = getPositionForTile(row, col)
+        local x, y = getPositionForTile(row, col)
 
-    --     local flower = Flower(
-    --         x + 2,
-    --         y + 2
-    --     )
-    --     self.entityManager:addEntity(flower, EntityTypes.FLOWER)
-    -- end
+        local flower = Flower(
+            x + 2,
+            y + 2
+        )
+        self.entityManager:addEntity(flower, EntityTypes.FLOWER)
+    end
 
     for _, turnstile in pairs(turnstiles) do
         self.entityManager:addEntity(Turnstile(turnstile.row, turnstile.col, turnstile.orientation), EntityTypes.TURNSTILE)

@@ -33,7 +33,7 @@ LevelData = {
             EnemyTypes.BEETLE,
             EnemyTypes.BEETLE,
         },
-        fruitName = "Cucumber",
+        fruitName = "CUCUMBER",
         fruitFile = "assets/graphcs/cucumber.png",
         fruitScore = 1000,
         tick = 0.1,
@@ -46,10 +46,10 @@ LevelData = {
             EnemyTypes.HUMMER,
             EnemyTypes.HUMMER,
         },
-        fruitName = "Cucumber",
-        fruitFile = "assets/graphcs/cucumber.png",
-        fruitScore = 1000,
-        tick = 0.3,
+        fruitName = "EGG PLANT",
+        fruitFile = "assets/graphcs/eggplant.png",
+        fruitScore = 1500,
+        tick = 0.09,
         enemySpeed = 60
     },
     {
@@ -59,10 +59,10 @@ LevelData = {
             EnemyTypes.MANTIS,
             EnemyTypes.MANTIS,
         },
-        fruitName = "Cucumber",
-        fruitFile = "assets/graphcs/cucumber.png",
-        fruitScore = 1000,
-        tick = 0.09,
+        fruitName = "CARROT",
+        fruitFile = "assets/graphcs/carrot.png",
+        fruitScore = 2000,
+        tick = 0.08,
         enemySpeed = 70
     },
     {
@@ -72,10 +72,10 @@ LevelData = {
             EnemyTypes.IDONTKNOW,
             EnemyTypes.IDONTKNOW,
         },
-        fruitName = "Cucumber",
+        fruitName = "RADISH",
         fruitFile = "assets/graphcs/cucumber.png",
-        fruitScore = 1000,
-        tick = 0.08,
+        fruitScore = 2500,
+        tick = 0.07,
         enemySpeed = 80
     },
     {
@@ -85,10 +85,10 @@ LevelData = {
             EnemyTypes.SCARAB,
             EnemyTypes.SCARAB,
         },
-        fruitName = "Cucumber",
+        fruitName = "PARSLEY",
         fruitFile = "assets/graphcs/cucumber.png",
-        fruitScore = 1000,
-        tick = 0.07,
+        fruitScore = 3000,
+        tick = 0.06,
         enemySpeed = 90
     },
     {
@@ -98,10 +98,10 @@ LevelData = {
             EnemyTypes.FLY,
             EnemyTypes.FLY,
         },
-        fruitName = "Cucumber",
+        fruitName = "TOMATO",
         fruitFile = "assets/graphcs/cucumber.png",
-        fruitScore = 1000,
-        tick = 0.06,
+        fruitScore = 3500,
+        tick = 0.05,
         enemySpeed = 100
     },
     {
@@ -111,10 +111,10 @@ LevelData = {
             EnemyTypes.PALMERS,
             EnemyTypes.PALMERS,
         },
-        fruitName = "Cucumber",
+        fruitName = "PUMPKIN",
         fruitFile = "assets/graphcs/cucumber.png",
-        fruitScore = 1000,
-        tick = 0.05,
+        fruitScore = 4000,
+        tick = 0.04,
         enemySpeed = 110
     },
     {
@@ -124,11 +124,168 @@ LevelData = {
             EnemyTypes.WORM,
             EnemyTypes.WORM,
         },
-        fruitName = "Cucumber",
+        fruitName = "BAMBOO SHOOT",
         fruitFile = "assets/graphcs/cucumber.png",
-        fruitScore = 1000,
+        fruitScore = 4500,
+        tick = 0.03,
+        enemySpeed = 120
+    },
+    {
+        enemies = {
+            EnemyTypes.BEETLE,
+            EnemyTypes.HUMMER,
+            EnemyTypes.MANTIS,
+            EnemyTypes.IDONTKNOW,
+        },
+        fruitName = "JAPANESE RADISH",
+        fruitFile = "assets/graphcs/cucumber.png",
+        fruitScore = 5000,
+        tick = 0.02,
+        enemySpeed = 120
+    },
+    {
+        enemies = {
+            EnemyTypes.HUMMER,
+            EnemyTypes.IDONTKNOW,
+            EnemyTypes.MANTIS,
+            EnemyTypes.SCARAB,
+        },
+        fruitName = "MUSHROOM",
+        fruitFile = "assets/graphcs/cucumber.png",
+        fruitScore = 5500,
+        tick = 0.01,
+        enemySpeed = 120
+    },
+    {
+        enemies = {
+            EnemyTypes.IDONTKNOW,
+            EnemyTypes.MANTIS,
+            EnemyTypes.SCARAB,
+            EnemyTypes.FLY,
+        },
+        fruitName = "POTATO",
+        fruitFile = "assets/graphcs/cucumber.png",
+        fruitScore = 6000,
+        tick = 0.005,
+        enemySpeed = 120
+    },
+    {
+        enemies = {
+            EnemyTypes.MANTIS,
+            EnemyTypes.SCARAB,
+            EnemyTypes.FLY,
+            EnemyTypes.PALMERS,
+        },
+        fruitName = "ONION",
+        fruitFile = "assets/graphcs/cucumber.png",
+        fruitScore = 6500,
+        tick = 0.04,
+        enemySpeed = 120
+    },
+    {
+        enemies = {
+            EnemyTypes.SCARAB,
+            EnemyTypes.FLY,
+            EnemyTypes.PALMERS,
+            EnemyTypes.WORM,
+        },
+        fruitName = "CHINESE CABBAGE",
+        fruitFile = "assets/graphcs/cucumber.png",
+        fruitScore = 7000,
+        tick = 0.04,
+        enemySpeed = 120
+    },
+    {
+        enemies = {
+            EnemyTypes.BEETLE,
+            EnemyTypes.HUMMER,
+            EnemyTypes.MANTIS,
+            EnemyTypes.IDONTKNOW,
+        },
+        fruitName = "TURNIP",
+        fruitFile = "assets/graphcs/cucumber.png",
+        fruitScore = 7500,
+        tick = 0.04,
+        enemySpeed = 120
+    },
+    {
+        enemies = {
+            EnemyTypes.HUMMER,
+            EnemyTypes.IDONTKNOW,
+            EnemyTypes.MANTIS,
+            EnemyTypes.SCARAB,
+        },
+        fruitName = "RED PEPER",
+        fruitFile = "assets/graphcs/cucumber.png",
+        fruitScore = 8000,
+        tick = 0.04,
+        enemySpeed = 120
+    },
+    {
+        enemies = {
+            EnemyTypes.IDONTKNOW,
+            EnemyTypes.MANTIS,
+            EnemyTypes.SCARAB,
+            EnemyTypes.FLY,
+        },
+        fruitName = "CELERY",
+        fruitFile = "assets/graphcs/cucumber.png",
+        fruitScore = 8500,
+        tick = 0.04,
+        enemySpeed = 120
+    },
+    {
+        enemies = {
+            EnemyTypes.MANTIS,
+            EnemyTypes.SCARAB,
+            EnemyTypes.FLY,
+            EnemyTypes.PALMERS,
+        },
+        fruitName = "SWEET POTATO",
+        fruitFile = "assets/graphcs/cucumber.png",
+        fruitScore = 9000,
+        tick = 0.04,
+        enemySpeed = 120
+    },
+    {
+        enemies = {
+            EnemyTypes.SCARAB,
+            EnemyTypes.FLY,
+            EnemyTypes.PALMERS,
+            EnemyTypes.WORM,
+        },
+        fruitName = "HORSERADISH",
+        fruitFile = "assets/graphcs/cucumber.png",
+        fruitScore = 9500,
+        tick = 0.04,
+        enemySpeed = 120
+    },
+    {
+        enemies = {
+            EnemyTypes.BEETLE,
+            EnemyTypes.HUMMER,
+            EnemyTypes.MANTIS,
+            EnemyTypes.IDONTKNOW,
+        },
+        fruitName = "HORSERADISH",
+        fruitFile = "assets/graphcs/cucumber.png",
+        fruitScore = 9500,
+        tick = 0.04,
+        enemySpeed = 120
+    },
+    {
+        enemies = {
+            EnemyTypes.HUMMER,
+            EnemyTypes.IDONTKNOW,
+            EnemyTypes.MANTIS,
+            EnemyTypes.SCARAB,
+        },
+        fruitName = "HORSERADISH",
+        fruitFile = "assets/graphcs/cucumber.png",
+        fruitScore = 9500,
         tick = 0.04,
         enemySpeed = 120
     },
 }
+
 
