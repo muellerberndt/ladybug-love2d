@@ -2,8 +2,6 @@ PlayState = Class{__includes = BaseState}
 
 
 function PlayState:init()
-    self.transitionAlpha = 1
-    self.gameClockTimer = {}
 end
 
 function PlayState:reset()
@@ -144,6 +142,9 @@ function PlayState:enter(params)
     self.specialLettersLit = params.specialLettersLit
 
     self.multiplier = 1
+
+    self.transitionAlpha = 1
+    self.gameClockTimer = {}
 
     -- Set up the level
 
@@ -331,10 +332,6 @@ function PlayState:enter(params)
             )
 
             table.insert(self.trappedEnemies, enemy)
-        end
-
-        if PLAY_MUSIC then
-            sounds['music']:play()
         end
 
         self.tick = 0
