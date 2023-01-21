@@ -28,6 +28,7 @@ require 'entities.Wall'
 require 'entities.Flower'
 require 'entities.Letter'
 require 'entities.Skull'
+require 'entities.Plant'
 require 'entities.Turnstile'
 require 'entities.PlayFieldScore'
 require 'util.Util'
@@ -107,6 +108,7 @@ function love.load()
         ['stageclear'] = love.audio.newSource('assets/sounds/stageclear.wav', 'static'),
         ['playerdeath'] = love.audio.newSource('assets/sounds/playerdeath.wav', 'static'),
         ['die'] = love.audio.newSource('assets/sounds/die.wav', 'static'),
+        ['veggieeaten'] = love.audio.newSource('assets/sounds/veggieeaten.wav', 'static'),
         ['music'] = love.audio.newSource('assets/music/8_Bit_Retro_Funk_David_Renda.mp3', 'static')
     }
 

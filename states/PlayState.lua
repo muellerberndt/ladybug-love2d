@@ -3,6 +3,7 @@ PlayState = Class{__includes = BaseState}
 
 function PlayState:init()
     self.transitionAlpha = 1
+    self.gameClockTimer = {}
 end
 
 function PlayState:reset()
@@ -11,6 +12,8 @@ end
 
 function PlayState:update(dt)
     self.entityManager:update(dt)
+
+    Timer.update(dt, self.gameClockTimer)
 
     -- Check win conditions
 
@@ -36,14 +39,12 @@ function PlayState:update(dt)
         end
     end
 
-    print("Extra letters collected: " .. collected)
-
     if collected == 5 then
         gStateMachine:change('extralife',
             {
                 level = self.level,
                 score = self.score,
-                slives = self.lives,
+                lives = self.lives,
                 specialLettersLit = self.specialLettersLit
             })
     end
@@ -55,9 +56,6 @@ function PlayState:update(dt)
             collected = collected + 1
         end
     end
-
-
-
 
 end
 
@@ -118,13 +116,6 @@ function PlayState:draw()
     end
 
     Clock.draw(self.tick)
-
-    -- --- DEBUG
-    -- local row, col = getTileForPosition(self.entityManager.player.x, self.entityManager.player.y)
-
-    -- love.graphics.setColor(1, 1, 1, 1)
-    -- love.graphics.setFont(largeFont)
-    -- love.graphics.print("x ".. math.floor(self.entityManager.player.x) .. " y ".. math.floor(self.entityManager.player.y) .. " R ".. row .." C ".. col, 10, 10)
 
     self.entityManager:draw()
 
@@ -253,22 +244,7 @@ function PlayState:enter(params)
     end
 
     self.tick = 0
-
-    Timer.every(data.tick, function()
-        self.tick = self.tick + 1
-
-        if (self.tick == 82 or self.tick == 174) and #self.trappedEnemies > 0 then
-            sounds['enemylaunch']:play()
-        end
-        if (self.tick == 92 or self.tick == 184) and #self.trappedEnemies > 0 then
-            local idx = #self.trappedEnemies
-            self.trappedEnemies[idx].state = "roaming"
-            table.remove(self.trappedEnemies, idx)
-        end
-        if self.tick == 184 then
-            self.tick = 0
-        end
-    end)
+    self:startClockTick()
 
     self.awardPointsHandler = Event.on('awardPoints', function(points)
 
@@ -316,6 +292,12 @@ function PlayState:enter(params)
     end
     )
 
+    self.plantEatenHandler = Event.on('plantEaten', function(plant)
+        sounds['veggieeaten']:play()
+        self.score = self.score + plant.points
+        self:freezeEnemies(5)
+    end
+    )
 
     self.deathHandler = Event.on('playerDeath', function(dt)
 
@@ -378,12 +360,13 @@ end
 function PlayState:exit()
     sounds['music']:stop()
     Timer.clear()
+    Timer.clear(self.gameClockTimer)
     self.deathHandler:remove()
     self.letterAwardedHandler:remove()
     self.enemyTrappedHandler:remove()
     self.awardPointsHandler:remove()
+    self.plantEatenHandler:remove()
 end
-
 
 function PlayState:awardPoints(points)
     self.score = self.score + points * self.multiplier
@@ -403,15 +386,46 @@ function PlayState:startClockTick()
             local idx = #self.trappedEnemies
             self.trappedEnemies[idx].state = "roaming"
             table.remove(self.trappedEnemies, idx)
+
+            if  #self.trappedEnemies == 0 then
+
+                local hasPlant = false
+
+                for _, e in pairs(self.entityManager.gameObjects) do
+                    if e.type == "plant" then
+                        hasPlant = true
+                        break
+                    end
+                end
+
+                if not hasPlant then
+                    self.entityManager:addEntity(Plant(
+                        11 * 8,
+                        16 + 11 * 8,
+                        LevelData[self.level].fruitFile,
+                        LevelData[self.level].fruitScore
+                        ),
+                        EntityTypes.GAMEOBJECT
+                    )
+                end
+            end
         end
         if self.tick == 184 then
             self.tick = 0
         end
+    end):group(self.gameClockTimer)
+end
+
+function PlayState:freezeEnemies(seconds)
+    self.entityManager:freezeEnemies()
+    Timer.after(seconds, function()
+        self.entityManager:unfreezeEnemies()
     end)
+
 end
 
 function PlayState:freeze(seconds)
-    Timer.clear()
+    Timer.clear(self.gameClockTimer)
     self.entityManager:freezeGame()
     Timer.after(seconds, function()
         self.entityManager:unfreezeGame()

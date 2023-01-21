@@ -159,7 +159,7 @@ function Enemy:update(dt)
 
     self.animation:update(dt)
 
-    if self.state == "roaming" then
+    if self.state == "roaming" and not self.isFrozen then
 
         local distance = math.sqrt((self.desiredX - self.x) ^ 2 + (self.desiredY - self.y) ^ 2)
 
@@ -225,6 +225,14 @@ end
 
 function Enemy:destroy()
     self.isDestroyed = true
+end
+
+function Enemy:freeze()
+    self.state = "trapped"
+end
+
+function Enemy:unfreeze()
+    self.state = "roaming"
 end
 
 

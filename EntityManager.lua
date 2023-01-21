@@ -20,7 +20,6 @@ function EntityManager:init()
     self.gameObjects = {}
 
     self.size = 0
-
     self.gameFrozen = false
 
     self.tilemap = {}
@@ -61,6 +60,18 @@ function EntityManager:updateTable(entityTable, dt)
 			i = i + 1
 		end
 	end
+end
+
+function EntityManager:freezeEnemies()
+    for _, e in pairs(self.enemies) do
+        e:freeze()
+    end
+end
+
+function EntityManager:unfreezeEnemies()
+    for _, e in pairs(self.enemies) do
+        e:unfreeze()
+    end
 end
 
 function EntityManager:freezeGame()
@@ -114,6 +125,9 @@ function EntityManager:update(dt)
                 if v.type == "skull" and v:collide(self.player) then
                     v:destroy()
                     self.player:die()
+                elseif v.type == "plant" and v:collide(self.player) then
+                    Event.dispatch("plantEaten", v)
+                    v:destroy()
                 end
             end
 
@@ -162,11 +176,11 @@ end
 
 function EntityManager:draw()
     self:drawTable(self.walls)
+	self:drawTable(self.gameObjects)
 	self:drawTable(self.turnstiles)
 	self:drawTable(self.flowers)
 	self:drawTable(self.letters)
 	self:drawTable(self.enemies)
-	self:drawTable(self.gameObjects)
 	self.player:draw()
 end
 
