@@ -315,7 +315,22 @@ function PlayState:enter(params)
         self.lives = self.lives - 1
 
         if self.lives == 0 then
-            gStateMachine:change("title")
+
+            highscores = getHighScores(HIGH_SCORES_FILE)
+
+            changed = false
+
+            for i=1,10 do
+                if (not highscores[i]) or (self.score > highscores[i][1]) then
+                    gStateMachine:change("gameover", {
+                        score = self.score
+                    })
+                    changed = true
+                    break
+                end
+            end
+
+            if not changed then gStateMachine:change('title') end
         end
 
         self.entityManager:addEntity(Player(), EntityTypes.PLAYER)

@@ -15,6 +15,14 @@ function TitleState:update(dt)
                 specialLettersLit = {}
             })
     end
+
+    if love.keyboard.keyPressed['space'] then
+        gStateMachine:change('highscore')
+    end
+
+    if (os.time() - self.time > 5) then
+        gStateMachine:change('highscore')
+    end
 end
 
 function TitleState:draw()
@@ -26,6 +34,7 @@ function TitleState:draw()
 end
 
 function TitleState:enter()
+    self.time = os.time()
 end
 
 function TitleState:exit()

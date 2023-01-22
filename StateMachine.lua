@@ -18,6 +18,12 @@ function StateMachine:change(stateName, enterParams)
 	self.current:enter(enterParams)
 end
 
+function StateMachine:textinput(text)
+	if self.current.textinput then
+		self.current:textinput(text)
+	end
+end
+
 function StateMachine:update(dt)
 	self.current:update(dt)
 end

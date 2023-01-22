@@ -23,3 +23,5 @@ COMMON_LETTERS = {
     'e',
     'a'
 }
+
+HIGH_SCORES_FILE = './highscores.txt'

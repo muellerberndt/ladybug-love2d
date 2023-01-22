@@ -22,6 +22,8 @@ require 'states.TitleState'
 require 'states.LevelStartState'
 require 'states.PlayState'
 require 'states.ExtraLifeState'
+require 'states.HighScoreState'
+require 'states.GameOverState'
 require 'entities.Player'
 require 'entities.Enemy'
 require 'entities.Wall'
@@ -73,7 +75,7 @@ function love.load()
 
     -- initialize our nice-looking retro text fonts
     smallFont = love.graphics.newFont('assets/fonts/lady-bug.ttf', 7)
-    largeFont = love.graphics.newFont('assets/fonts/lady-bug.ttf', 8)
+    largeFont = love.graphics.newFont('assets/fonts/lady-bug.ttf', 10)
 
     -- load up the graphics we'll be using throughout our states
     gTextures = {
@@ -125,6 +127,8 @@ function love.load()
         ['levelstart'] = function () return LevelStartState() end,
         ['play'] = function() return PlayState() end,
         ['extralife'] = function() return ExtraLifeState() end,
+        ['highscore'] = function() return HighScoreState() end,
+        ['gameover'] = function() return GameOverState() end,
     }
 
     gStateMachine:change('title')
@@ -142,6 +146,10 @@ function love.update(dt)
 
     Timer.update(dt)
 
+end
+
+function love.textinput(text)
+    gStateMachine:textinput(text)
 end
 
 function love.keypressed(key)

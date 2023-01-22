@@ -47,3 +47,45 @@ function deepcopy(orig)
     end
     return copy
 end
+
+function split(inputstr, sep)  -- Splits a string
+    if sep == nil then
+            sep = "%s"
+    end
+    local t={}
+    for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+            table.insert(t, str)
+    end
+    return t
+end
+
+function serialize(o, file)  -- Writes highscores to a file
+    file = io.open(file, 'w')
+    if type(o) == "number" then
+        file:write(o)
+        file:close()
+    elseif type(o) == "string" then
+        file:write(string.format("%q", o))
+        file:close()
+    elseif type(o) == "table" then
+        -- io.write("{\n")
+        for _,v in pairs(o) do
+            file:write(v[1] .. ',' .. v[2] .. '\n')
+        end
+        file:close()
+    else
+        file:close()
+        error("cannot serialize a " .. type(o))
+    end
+end
+
+function getHighScores(highscoresFile)
+    highscores = {}
+    i = 1
+    for line in io.lines(highscoresFile) do
+        score, name = unpack(split(line, ','))
+        highscores[i] = {[1] = tonumber(score), [2] = name}
+        i = i + 1
+    end
+    return highscores
+end
