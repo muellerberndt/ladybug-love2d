@@ -1,6 +1,10 @@
 # Ladybug LÖVE
 
-A LÖVE port of the classic Arcade game Ladybug.
+<p align="center">
+	<img src="screenshot.png" height="480px"/>
+</p>
+
+A LÖVE port of the classic Arcade game [Ladybug](https://en.wikipedia.org/wiki/Lady_Bug_(video_game)).
 
 ## How to run
 
