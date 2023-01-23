@@ -61,21 +61,21 @@ function HighScoreState:update(dt)
 end
 
 function HighScoreState:draw()
-    love.graphics.setColor(1, 0.68, 1, 1)
+    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.setFont(largeFont)
 
     w, h = VIRTUAL_WIDTH, VIRTUAL_HEIGHT
     y = h / 14
 
-    love.graphics.printf({{1, 0, 0}, "High Scores"}, 0, y, w, "center")
+    love.graphics.printf({{1, 1, 1}, "High Scores"}, 0, y, w, "center")
 
-    love.graphics.setFont(smallFont)
+    --  love.graphics.setFont(smallFont)
 
     y = y + h / 14
 
     for i, info in ipairs(self.highscores) do
         y = y + h / 14
-        love.graphics.printf({{1, 0, 0}, "#" .. i .. "   ", {1, 1, 1}, info[2] .. " - " .. info[1]}, w / 4, y, w, "left")
+        love.graphics.printf({{1, 0, 0}, "#" .. i .. "   ", {0.68, 0.68, 0.68}, info[2] .. " - " .. info[1]}, w / 6, y, w, "left")
     end
 end
 

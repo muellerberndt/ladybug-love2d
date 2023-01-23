@@ -8,7 +8,7 @@ function SpecialState:update(dt)
 end
 
 function SpecialState:draw()
-    love.graphics.setFont(mediumFont)
+    love.graphics.setFont(largeFont)
     love.graphics.printf("CONGRATULATIONS!", 0, 100, VIRTUAL_WIDTH, "center")
     love.graphics.printf("YOU WIN", 0, 115, VIRTUAL_WIDTH, "center")
 

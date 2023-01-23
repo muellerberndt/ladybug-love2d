@@ -8,7 +8,7 @@ function LevelStartState:update(dt)
 end
 
 function LevelStartState:draw()
-    love.graphics.setFont(mediumFont)
+    love.graphics.setFont(largeFont)
     love.graphics.setColor(0, 0.68, 1, 1)
     love.graphics.printf("PART " .. self.level, 46, 50, 100, "center")
 

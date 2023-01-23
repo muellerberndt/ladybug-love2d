@@ -79,7 +79,7 @@ function PlayState:draw()
     love.graphics.draw(gTextures['playfield'], 0, 0)
     love.graphics.draw(gTextures['top'], 1, 1)
 
-    love.graphics.setFont(mediumFont)
+    love.graphics.setFont(largeFont)
     love.graphics.setColor(0.68, 0.68, 0.68, 1)
     love.graphics.print("SPECIAL", 9, 9)
     love.graphics.print("EXTRA", 81, 9)
@@ -133,7 +133,7 @@ function PlayState:draw()
 
     self.entityManager:draw()
 
-    love.graphics.setFont(mediumFont)
+    love.graphics.setFont(largeFont)
     love.graphics.printf(self.score, 90, 210, 101, "right" )
 
     if self.transitionAlpha > 0 then

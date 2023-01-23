@@ -30,7 +30,7 @@ function GameOverState:draw()
     w, h = VIRTUAL_WIDTH, VIRTUAL_HEIGHT
     love.graphics.setFont(largeFont)
     love.graphics.printf({{1, 0, 0}, "New high score!"}, 0, h / 3, w, "center")
-    love.graphics.setFont(smallFont)
+    -- love.graphics.setFont(smallFont)
     love.graphics.printf({{1, 1, 1}, "Your Score: ", {0, 1, 0}, self.score}, 0, h - h / 4 - 50, w, "center")
     love.graphics.printf({{1, 1, 0}, "Enter Your Initials"}, 0, h - h / 4, w, "center")
     love.graphics.printf(self.name, 0, h - (h / 4) + 10, w, "center")
