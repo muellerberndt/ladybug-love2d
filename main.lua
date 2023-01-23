@@ -112,6 +112,7 @@ function love.load()
         ['playerdeath'] = love.audio.newSource('assets/sounds/playerdeath.wav', 'static'),
         ['die'] = love.audio.newSource('assets/sounds/die.wav', 'static'),
         ['veggieeaten'] = love.audio.newSource('assets/sounds/veggieeaten.wav', 'static'),
+        ['extramusic'] = love.audio.newSource('assets/sounds/extramusic.wav', 'static'),
         ['music'] = love.audio.newSource('assets/music/8_Bit_Retro_Funk_David_Renda.mp3', 'static')
     }
 
@@ -133,6 +134,14 @@ function love.load()
     }
 
     gStateMachine:change('title')
+
+    -- gStateMachine:change('extralife',
+    -- {
+    --     level = 1,
+    --     score = 0,
+    --     lives = 3,
+    --     specialLettersLit = {}
+    -- })
 end
 
 function love.resize(w, h)
