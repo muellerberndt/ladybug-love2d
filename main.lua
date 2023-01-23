@@ -135,6 +135,18 @@ function love.load()
         ['gameover'] = function() return GameOverState() end,
     }
 
+    -- Create a default highscore file if none exists
+
+    if not file_exists(HIGH_SCORES_FILE) then
+        hiscores = {}
+
+        for i = 1, 10, 1 do
+            table.insert(hiscores, {10000, 'BER'})
+        end
+
+        serialize(hiscores, HIGH_SCORES_FILE)
+    end
+
     gStateMachine:change('title')
 
     -- gStateMachine:change('extralife',

@@ -48,6 +48,11 @@ function deepcopy(orig)
     return copy
 end
 
+function file_exists(name)
+    local f = io.open(name, "r")
+    return f ~= nil and io.close(f)
+ end
+
 function split(inputstr, sep)  -- Splits a string
     if sep == nil then
             sep = "%s"
