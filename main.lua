@@ -130,6 +130,7 @@ function love.load()
         ['levelstart'] = function () return LevelStartState() end,
         ['play'] = function() return PlayState() end,
         ['extralife'] = function() return ExtraLifeState() end,
+        ['special'] = function() return SpecialState() end,
         ['highscore'] = function() return HighScoreState() end,
         ['gameover'] = function() return GameOverState() end,
     }

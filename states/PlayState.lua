@@ -55,6 +55,16 @@ function PlayState:update(dt)
         end
     end
 
+    if collected == 7 then
+        gStateMachine:change('special',
+            {
+                level = self.level,
+                score = self.score,
+                lives = self.lives,
+                extraLettersLit = self.extraLettersLit
+            })
+    end
+
 end
 
 function PlayState:advanceMultiplier()
