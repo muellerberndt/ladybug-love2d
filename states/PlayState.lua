@@ -97,6 +97,12 @@ function PlayState:draw()
         end
     end
 
+    love.graphics.setColor(1, 1, 1, 1)
+
+    for i = 1, self.lives - 1, 1 do
+        love.graphics.draw(gTextures['life'], 6 + (i - 1) * 16, 208)
+    end
+
     if SHOW_TILES then
         for y, row in pairs(self.entityManager.tilemap) do
             for x, col in pairs(row) do
@@ -302,7 +308,7 @@ function PlayState:enter(params)
 
     self.deathHandler = Event.on('playerDeath', function(dt)
 
-        Timer.clear()
+        Timer.clear(self.gameClockTimer)
 
         local data = LevelData[self.level]
 

@@ -84,6 +84,7 @@ function love.load()
         ['playfield'] = love.graphics.newImage('assets/graphics/playfield.png'),
         ['top'] = love.graphics.newImage('assets/graphics/topfield.png'),
         ['ladybug'] = love.graphics.newImage('assets/graphics/ladybug.png'),
+        ['life'] = love.graphics.newImage('assets/graphics/life.png'),
         ['turnstile'] = love.graphics.newImage('assets/graphics/turnstile.png'),
         ['flower'] = love.graphics.newImage('assets/graphics/dot.png'),
         ['cucumber'] = love.graphics.newImage('assets/graphics/cucumber.png'),
