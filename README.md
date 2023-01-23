@@ -15,3 +15,7 @@ git clone https://github.com/muellerberndt/ladybug-love2d
 cd ladybug-love2d
 love .
 ```
+
+## Acknowledgements
+
+Credits go to [Cosimo](https://github.com/cosimo) for his earlier work on a Love2D port, I re-used some of his assets.
