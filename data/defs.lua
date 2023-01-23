@@ -37,7 +37,8 @@ LevelData = {
         fruitFile = "assets/graphics/cucumber.png",
         fruitScore = 1000,
         tick = 0.18,
-        enemySpeed = 50
+        enemySpeed = 50,
+        maxSkulls = 3
     },
     {
         enemies = {
@@ -50,7 +51,8 @@ LevelData = {
         fruitFile = "assets/graphics/eggplant.png",
         fruitScore = 1500,
         tick = 0.15,
-        enemySpeed = 55
+        enemySpeed = 55,
+        maxSkulls = 3
     },
     {
         enemies = {
@@ -63,7 +65,8 @@ LevelData = {
         fruitFile = "assets/graphics/carrot.png",
         fruitScore = 2000,
         tick = 0.13,
-        enemySpeed = 60
+        enemySpeed = 60,
+        maxSkulls = 3
     },
     {
         enemies = {
@@ -76,7 +79,8 @@ LevelData = {
         fruitFile = "assets/graphics/radish.png",
         fruitScore = 2500,
         tick = 0.11,
-        enemySpeed = 65
+        enemySpeed = 65,
+        maxSkulls = 3
     },
     {
         enemies = {
@@ -89,7 +93,8 @@ LevelData = {
         fruitFile = "assets/graphics/parsley.png",
         fruitScore = 3000,
         tick = 0.1,
-        enemySpeed = 70
+        enemySpeed = 70,
+        maxSkulls = 4
     },
     {
         enemies = {
@@ -102,7 +107,8 @@ LevelData = {
         fruitFile = "assets/graphics/tomato.png",
         fruitScore = 3500,
         tick = 0.09,
-        enemySpeed = 75
+        enemySpeed = 75,
+        maxSkulls = 4
     },
     {
         enemies = {
@@ -115,7 +121,8 @@ LevelData = {
         fruitFile = "assets/graphics/pumpkin.png",
         fruitScore = 4000,
         tick = 0.08,
-        enemySpeed = 80
+        enemySpeed = 80,
+        maxSkulls = 4
     },
     {
         enemies = {
@@ -128,7 +135,8 @@ LevelData = {
         fruitFile = "assets/graphics/bamboo.png",
         fruitScore = 4500,
         tick = 0.07,
-        enemySpeed = 85
+        enemySpeed = 85,
+        maxSkulls = 4
     },
     {
         enemies = {
@@ -141,7 +149,8 @@ LevelData = {
         fruitFile = "assets/graphics/japanese.png",
         fruitScore = 5000,
         tick = 0.06,
-        enemySpeed = 90
+        enemySpeed = 90,
+        maxSkulls = 5
     },
     {
         enemies = {
@@ -154,7 +163,8 @@ LevelData = {
         fruitFile = "assets/graphics/mushroom.png",
         fruitScore = 5500,
         tick = 0.05,
-        enemySpeed = 95
+        enemySpeed = 95,
+        maxSkulls = 5
     },
     {
         enemies = {
@@ -168,7 +178,8 @@ LevelData = {
         fruitFile = "assets/graphics/potato.png",
         fruitScore = 6000,
         tick = 0.04,
-        enemySpeed = 100
+        enemySpeed = 100,
+        maxSkulls = 5
     },
     {
         enemies = {
@@ -181,7 +192,8 @@ LevelData = {
         fruitFile = "assets/graphics/onion.png",
         fruitScore = 6500,
         tick = 0.04,
-        enemySpeed = 105
+        enemySpeed = 105,
+        maxSkulls = 6
     },
     {
         enemies = {
@@ -194,7 +206,8 @@ LevelData = {
         fruitFile = "assets/graphics/cabbage.png",
         fruitScore = 7000,
         tick = 0.04,
-        enemySpeed = 110
+        enemySpeed = 110,
+        maxSkulls = 6
     },
     {
         enemies = {
@@ -207,7 +220,8 @@ LevelData = {
         fruitFile = "assets/graphics/turnip.png",
         fruitScore = 7500,
         tick = 0.04,
-        enemySpeed = 115
+        enemySpeed = 115,
+        maxSkulls = 6
     },
     {
         enemies = {
@@ -220,7 +234,8 @@ LevelData = {
         fruitFile = "assets/graphics/pepper.png",
         fruitScore = 8000,
         tick = 0.04,
-        enemySpeed = 120
+        enemySpeed = 120,
+        maxSkulls = 6
     },
     {
         enemies = {
@@ -233,7 +248,8 @@ LevelData = {
         fruitFile = "assets/graphics/celery.png",
         fruitScore = 8500,
         tick = 0.04,
-        enemySpeed = 125
+        enemySpeed = 125,
+        maxSkulls = 6
     },
     {
         enemies = {
@@ -246,7 +262,8 @@ LevelData = {
         fruitFile = "assets/graphics/sweetpotato.png",
         fruitScore = 9000,
         tick = 0.04,
-        enemySpeed = 130
+        enemySpeed = 130,
+        maxSkulls = 6
     },
     {
         enemies = {
@@ -259,7 +276,8 @@ LevelData = {
         fruitFile = "assets/graphics/horseradish.png",
         fruitScore = 9500,
         tick = 0.04,
-        enemySpeed = 135
+        enemySpeed = 135,
+        maxSkulls = 6
     },
     {
         enemies = {
@@ -272,7 +290,8 @@ LevelData = {
         fruitFile = "assets/graphics/horseradish.png",
         fruitScore = 9500,
         tick = 0.04,
-        enemySpeed = 140
+        enemySpeed = 140,
+        maxSkulls = 6
     },
     {
         enemies = {
@@ -285,7 +304,8 @@ LevelData = {
         fruitFile = "assets/graphics/horseradish.png",
         fruitScore = 9500,
         tick = 0.04,
-        enemySpeed = 145
+        enemySpeed = 145,
+        maxSkulls = 6
     },
 }
 

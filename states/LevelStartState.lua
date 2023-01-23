@@ -23,8 +23,8 @@ function LevelStartState:draw()
 
     love.graphics.setColor(1, 1, 1, 1)
 
-    for i=0, self.nSkulls, 1 do
-        love.graphics.draw(gTextures['skull'], VIRTUAL_WIDTH / 2 - (8 * self.nSkulls) + i * 16 - 8, 112)
+    for i=0, self.nSkulls - 1, 1 do
+        love.graphics.draw(gTextures['skull'], VIRTUAL_WIDTH / 2 - (8 * (self.nSkulls - 1)) + i * 16 - 8, 112)
     end
 
     local quad = love.graphics.newQuad(0, 0, 9, 9, 27, 9)
@@ -58,7 +58,7 @@ function LevelStartState:enter(params)
     self.extraLetter = EXTRA_LETTERS[love.math.random(#EXTRA_LETTERS)]
     self.specialLetter = SPECIAL_LETTERS[love.math.random(#SPECIAL_LETTERS)]
     self.commonLetter = COMMON_LETTERS[love.math.random(#COMMON_LETTERS)]
-    self.nSkulls = love.math.random(3)
+    self.nSkulls = love.math.random(LevelData[self.level].maxSkulls)
 
     self.extraLettersLit = table.shallow_copy(params.extraLettersLit)
     self.specialLettersLit = table.shallow_copy(params.specialLettersLit)
