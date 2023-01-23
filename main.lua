@@ -57,7 +57,7 @@ PLAYER_SPEED = 70
 -- Debug flags
 
 SHOW_HITBOXES = false
-SHOW_TILES = false
+SHOW_TILES = true
 
 local paused = false
 

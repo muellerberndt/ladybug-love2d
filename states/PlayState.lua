@@ -110,8 +110,13 @@ function PlayState:draw()
     love.graphics.setColor(1, 1, 1, 1)
 
     for i = 1, self.lives - 1, 1 do
-        love.graphics.draw(gTextures['life'], 6 + (i - 1) * 16, 208)
+        love.graphics.draw(gTextures['life'], 6 + (i - 1) * 16, 212)
     end
+
+    love.graphics.draw(self.plantTexture, 8, 224)
+
+    love.graphics.setColor(0, 1, 0, 1)
+    love.graphics.print("=" .. LevelData[self.level].fruitScore, 24, 230)
 
     if SHOW_TILES then
         for y, row in pairs(self.entityManager.tilemap) do
@@ -126,7 +131,6 @@ function PlayState:draw()
                 love.graphics.rectangle("fill", 4 + (x - 1) * 8, 13 + y * 8, 8, 8)
             end
         end
-
     end
 
     Clock.draw(self.tick)
@@ -166,6 +170,8 @@ function PlayState:enter(params)
 
     local data = LevelData[self.level]
 
+    self.plantTexture = love.graphics.newImage(data.fruitFile)
+
     self.entityManager = EntityManager()
     self.entityManager:addEntity(Player(), EntityTypes.PLAYER)
 
@@ -176,6 +182,7 @@ function PlayState:enter(params)
             if col == 0 and x % 2 == 0 and y % 2 == 0
             and not (y > 17 and x == 12)
             and not (y == 12 and x == 12)
+            and not (y == 10 and x == 12)
             then
                 table.insert(available_tiles, {y, x})
             elseif col == 1 then
@@ -221,6 +228,7 @@ function PlayState:enter(params)
 
     for i=1, nSkulls, 1 do
         idx = math.random(#available_tiles)
+
         row = available_tiles[idx][1]
         col = available_tiles[idx][2]
         x, y = getPositionForTile(row, col)
