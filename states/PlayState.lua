@@ -250,6 +250,10 @@ function PlayState:enter(params)
         self.entityManager:addEntity(flower, EntityTypes.FLOWER)
     end
 
+    local x, y = getPositionForTile(10, 12)
+
+    self.entityManager:addEntity(Flower(x + 2, y + 2), EntityTypes.FLOWER)
+
     for _, turnstile in pairs(turnstiles) do
         self.entityManager:addEntity(Turnstile(turnstile.row, turnstile.col, turnstile.orientation), EntityTypes.TURNSTILE)
     end
