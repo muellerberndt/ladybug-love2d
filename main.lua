@@ -75,6 +75,7 @@ function love.load()
 
     -- initialize our nice-looking retro text fonts
     smallFont = love.graphics.newFont('assets/fonts/lady-bug.ttf', 7)
+    mediumFont = love.graphics.newFont('assets/fonts/lady-bug.ttf', 8)
     largeFont = love.graphics.newFont('assets/fonts/lady-bug.ttf', 10)
 
     -- load up the graphics we'll be using throughout our states
