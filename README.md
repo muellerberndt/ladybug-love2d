@@ -18,4 +18,5 @@ love .
 
 ## Acknowledgements
 
-Credits go to [Cosimo](https://github.com/cosimo) for his earlier work on a Love2D port, I re-used some of his assets.
+- Credits go to [Cosimo](https://github.com/cosimo) for his earlier work on a Love2D port, I re-used some of his assets.
+- The game music track is "8 bit Retro Funk" by David Renda / [FesliyanStudios](https://www.fesliyanstudios.com).
