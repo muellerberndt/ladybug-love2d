@@ -23,6 +23,7 @@ function PlayState:update(dt)
                 level = self.level + 1,
                 score = self.score,
                 lives = self.lives,
+                players = self.players,
                 extraLettersLit = self.extraLettersLit,
                 specialLettersLit = self.specialLettersLit
             }
@@ -153,6 +154,7 @@ function PlayState:enter(params)
     self.level = params.level
     self.score = params.score
     self.lives = params.lives
+    self.players = params.players
     local extraLetter = params.extraLetter
     local specialLetter = params.specialLetter
     local commonLetter = params.commonLetter
@@ -173,7 +175,10 @@ function PlayState:enter(params)
     self.plantTexture = love.graphics.newImage(data.fruitFile)
 
     self.entityManager = EntityManager()
-    self.entityManager:addEntity(Player(), EntityTypes.PLAYER)
+    self.entityManager:addEntity(Player(1), EntityTypes.PLAYER)
+	if params.players == 2 then
+		self.entityManager:addEntity(Player(2), EntityTypes.PLAYER)
+	end
 
     local available_tiles = {}
 
@@ -338,7 +343,9 @@ function PlayState:enter(params)
             enemy:destroy()
         end
 
-        self.entityManager.player:destroy()
+	for _, e in pairs(self.entityManager.player) do
+		e:destroy()
+	end
 
         self.lives = self.lives - 1
 
@@ -361,7 +368,9 @@ function PlayState:enter(params)
             if not changed then gStateMachine:change('title') end
         end
 
-        self.entityManager:addEntity(Player(), EntityTypes.PLAYER)
+	for i, e in pairs(self.entityManager.player) do
+		self.entityManager.player[i] = Player(i)
+	end
 
         self.trappedEnemies = {}
 

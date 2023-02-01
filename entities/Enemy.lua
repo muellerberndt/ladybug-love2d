@@ -184,7 +184,7 @@ function Enemy:update(dt)
             self.hitbox.y2 = self.y + 14
 
             local ownRow, ownCol = getTileForPosition(self.x, self.y)
-            local playerRow, playerCol = getTileForPosition(self.entityManager.player.x, self.entityManager.player.y)
+            local playerRow, playerCol = getTileForPosition(self.entityManager.player[1].x, self.entityManager.player[1].y)
 
             local row, col = self:getNextStep(ownRow, ownCol, playerRow, playerCol, self.entityManager.tilemap)
             self:moveTo(row, col)

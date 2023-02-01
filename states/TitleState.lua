@@ -14,6 +14,19 @@ function TitleState:update(dt)
                 level = 1,
                 score = 0,
                 lives = 3,
+                players = 1,
+                extraLettersLit = {},
+                specialLettersLit = {}
+            })
+    end
+
+    if love.keyboard.keyPressed['2'] then
+        gStateMachine:change('levelstart',
+            {
+                level = 1,
+                score = 0,
+                lives = 3,
+                players = 2,
                 extraLettersLit = {},
                 specialLettersLit = {}
             })

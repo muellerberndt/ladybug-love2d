@@ -1,8 +1,20 @@
 Player = Class{__includes = Entity}
 
-function Player:init()
+function Player:init(n)
     Entity.init(self, VIRTUAL_WIDTH / 2 - 8, 184)
 
+    self.number = n
+    if (n == 1) then
+	self.left = "left"
+	self.right = "right"
+	self.up = "up"
+	self.down = "down"
+    else
+	self.left = "a"
+	self.right = "d"
+	self.up = "w"
+	self.down = "s"
+    end
     self.hitbox = {}
 
     self.hitbox.x1 = self.x + 4
@@ -56,16 +68,16 @@ function Player:update(dt)
         self.lastX = self.x
         self.lastY = self.y
 
-        if love.keyboard.isDown("left") then
+        if love.keyboard.isDown(self.left) then
             self.orientation = Orientation.LEFT
             self:move(-PLAYER_SPEED * dt, 0)
-        elseif love.keyboard.isDown("right") then
+        elseif love.keyboard.isDown(self.right) then
             self.orientation = Orientation.RIGHT
             self:move(PLAYER_SPEED * dt, 0)
-        elseif love.keyboard.isDown("up") then
+        elseif love.keyboard.isDown(self.up) then
             self.orientation = Orientation.UP
             self:move(0, -PLAYER_SPEED * dt)
-        elseif love.keyboard.isDown("down") then
+        elseif love.keyboard.isDown(self.down) then
             self.orientation = Orientation.DOWN
             self:move(0, PLAYER_SPEED * dt, 0)
         end
