@@ -9,11 +9,13 @@ function Player:init(n)
 	self.right = "right"
 	self.up = "up"
 	self.down = "down"
+	self.texture = gTextures['ladybug']
     else
 	self.left = "a"
 	self.right = "d"
 	self.up = "w"
 	self.down = "s"
+	self.texture = gTextures['ladybug2']
     end
     self.hitbox = {}
 
@@ -105,7 +107,7 @@ function Player:draw()
 
     if self.state == "alive" then
         --- Draw from center
-        self.animation:draw(gTextures['ladybug'], self.x + 8, self.y + 8, self.orientation, 1, 1, 8, 8)
+        self.animation:draw(self.texture, self.x + 8, self.y + 8, self.orientation, 1, 1, 8, 8)
         Entity.draw(self)
     elseif self.state == "dead" or self.state == "goingtoheaven" then
         self.deathAnimation:draw(gTextures['ghost'], self.x, self.y)
