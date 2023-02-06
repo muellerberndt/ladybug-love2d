@@ -14,7 +14,7 @@ function TitleState:update(dt)
                 level = 1,
                 score = 0,
                 lives = 3,
-                players = 1,
+                players = { PlayerStat(3, 0) },
                 extraLettersLit = {},
                 specialLettersLit = {}
             })
@@ -26,7 +26,7 @@ function TitleState:update(dt)
                 level = 1,
                 score = 0,
                 lives = 3,
-                players = 2,
+                players = { PlayerStat(3, 0), PlayerStat(3, 0) },
                 extraLettersLit = {},
                 specialLettersLit = {}
             })

@@ -11,10 +11,10 @@ function Flower:init(x, y)
     }
 end
 
-function Flower:onCollide()
+function Flower:onCollide(player)
     sounds['eatdot']:stop()
     sounds['eatdot']:play()
-    Event.dispatch('awardPoints', 10)
+    Event.dispatch('awardPoints', 10, player)
     self:destroy()
 end
 

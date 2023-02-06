@@ -1,6 +1,6 @@
 Player = Class{__includes = Entity}
 
-function Player:init(n)
+function Player:init(n, stat)
     Entity.init(self, VIRTUAL_WIDTH / 2 - 8, 184)
 
     self.number = n
@@ -18,6 +18,7 @@ function Player:init(n)
 	self.texture = gTextures['ladybug2']
     end
     self.hitbox = {}
+	self.stat = stat
 
     self.hitbox.x1 = self.x + 4
     self.hitbox.x2 = self.x + 12
@@ -91,7 +92,7 @@ function Player:update(dt)
         self.tick = self.tick + dt
 
         if self.tick > 2 then
-            Event.dispatch("playerDeath")
+            Event.dispatch("playerDeath", self)
         end
 
         self.x = self.baseX + 15 * math.sin(self.tick * 10)

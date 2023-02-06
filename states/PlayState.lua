@@ -21,8 +21,6 @@ function PlayState:update(dt)
             "levelstart",
             {
                 level = self.level + 1,
-                score = self.score,
-                lives = self.lives,
                 players = self.players,
                 extraLettersLit = self.extraLettersLit,
                 specialLettersLit = self.specialLettersLit
@@ -42,8 +40,7 @@ function PlayState:update(dt)
         gStateMachine:change('extralife',
             {
                 level = self.level,
-                score = self.score,
-                lives = self.lives,
+                players = self.players,
                 specialLettersLit = self.specialLettersLit
             })
     end
@@ -60,8 +57,7 @@ function PlayState:update(dt)
         gStateMachine:change('special',
             {
                 level = self.level,
-                score = self.score,
-                lives = self.lives,
+                players = self.players,
                 extraLettersLit = self.extraLettersLit
             })
     end
@@ -110,8 +106,13 @@ function PlayState:draw()
 
     love.graphics.setColor(1, 1, 1, 1)
 
-    for i = 1, self.lives - 1, 1 do
+    for i = 1, self.players[1].lives - 1, 1 do
         love.graphics.draw(gTextures['life'], 6 + (i - 1) * 16, 212)
+    end
+    if table.getn(self.players) == 2 then
+		for i = 1, self.players[2].lives - 1, 1 do
+			love.graphics.draw(gTextures['life2'], 170 - (i - 1) * 16, 212)
+		end
     end
 
     love.graphics.draw(self.plantTexture, 8, 224)
@@ -139,7 +140,10 @@ function PlayState:draw()
     self.entityManager:draw()
 
     love.graphics.setFont(largeFont)
-    love.graphics.printf(self.score, 90, 210, 101, "right" )
+    love.graphics.printf(self.players[1].score, 6, 210, 101, "left" )
+    if table.getn(self.players) == 2 then
+		love.graphics.printf(self.players[2].score, 90, 210, 101, "right" )
+	end
 
     if self.transitionAlpha > 0 then
         love.graphics.setColor(0, 0, 0, self.transitionAlpha)
@@ -152,8 +156,6 @@ end
 ]]
 function PlayState:enter(params)
     self.level = params.level
-    self.score = params.score
-    self.lives = params.lives
     self.players = params.players
     local extraLetter = params.extraLetter
     local specialLetter = params.specialLetter
@@ -175,9 +177,10 @@ function PlayState:enter(params)
     self.plantTexture = love.graphics.newImage(data.fruitFile)
 
     self.entityManager = EntityManager()
-    self.entityManager:addEntity(Player(1), EntityTypes.PLAYER)
-	if params.players == 2 then
-		self.entityManager:addEntity(Player(2), EntityTypes.PLAYER)
+	for index, e in pairs(self.players) do
+		if e.lives > 0 then
+			self.entityManager:addEntity(Player(index, e), EntityTypes.PLAYER)
+		end
 	end
 
     local available_tiles = {}
@@ -280,13 +283,13 @@ function PlayState:enter(params)
     self.tick = 0
     self:startClockTick()
 
-    self.awardPointsHandler = Event.on('awardPoints', function(points)
+    self.awardPointsHandler = Event.on('awardPoints', function(points, player)
 
-        self:awardPoints(points)
+        self:awardPoints(points, player)
     end
     )
 
-    self.letterAwardedHandler = Event.on('letterAwarded', function(letter)
+    self.letterAwardedHandler = Event.on('letterAwarded', function(letter, player)
 
         self:freeze(0.25)
 
@@ -315,7 +318,7 @@ function PlayState:enter(params)
             self.specialLettersLit[letter.letter] = true
         end
 
-        self:awardPoints(score)
+        self:awardPoints(score, player)
 
         letter:destroy()
     end
@@ -326,14 +329,14 @@ function PlayState:enter(params)
     end
     )
 
-    self.plantEatenHandler = Event.on('plantEaten', function(plant)
+    self.plantEatenHandler = Event.on('plantEaten', function(plant, player)
         sounds['veggieeaten']:play()
-        self.score = self.score + plant.points
+        player.stat.score = player.stat.score + plant.points
         self:freezeEnemies(5)
     end
     )
 
-    self.deathHandler = Event.on('playerDeath', function(dt)
+    self.deathHandler = Event.on('playerDeath', function(player)
 
         Timer.clear(self.gameClockTimer)
 
@@ -343,22 +346,25 @@ function PlayState:enter(params)
             enemy:destroy()
         end
 
-	for _, e in pairs(self.entityManager.player) do
-		e:destroy()
-	end
+		player.stat.lives = player.stat.lives - 1
 
-        self.lives = self.lives - 1
+		local dead = true
+		for _, e in pairs(self.players) do
+			if e.lives ~= 0 then
+				dead = false
+			end
+		end
 
-        if self.lives == 0 then
+        if dead then
 
             highscores = getHighScores(HIGH_SCORES_FILE)
 
             changed = false
 
             for i=1,10 do
-                if (not highscores[i]) or (self.score > highscores[i][1]) then
+                if (not highscores[i]) or (self.players[1].score > highscores[i][1]) then
                     gStateMachine:change("gameover", {
-                        score = self.score
+                        score = self.players[1].score
                     })
                     changed = true
                     break
@@ -368,9 +374,12 @@ function PlayState:enter(params)
             if not changed then gStateMachine:change('title') end
         end
 
-	for i, e in pairs(self.entityManager.player) do
-		self.entityManager.player[i] = Player(i)
-	end
+		self.entityManager.player = {}
+		for i, e in pairs(self.players) do
+			if e.lives > 0 then
+				self.entityManager:addEntity(Player(i, e), EntityTypes.PLAYER)
+			end
+		end
 
         self.trappedEnemies = {}
 
@@ -417,8 +426,8 @@ function PlayState:exit()
     self.plantEatenHandler:remove()
 end
 
-function PlayState:awardPoints(points)
-    self.score = self.score + points * self.multiplier
+function PlayState:awardPoints(points, player)
+    player.stat.score = player.stat.score + points * self.multiplier
 end
 
 function PlayState:startClockTick()

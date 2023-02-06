@@ -52,7 +52,7 @@ function LevelStartState:enter(params)
     self.level = params.level or 1
     self.lives = params.lives or 3
     self.score = params.score or 0
-    self.players = params.players or 1
+    self.players = params.players
 
     -- RNG stuff
 

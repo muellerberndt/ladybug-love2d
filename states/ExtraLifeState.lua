@@ -18,16 +18,17 @@ end
 
 function ExtraLifeState:enter(params)
     self.level = params.level
-    self.score = params.score
-    self.lives = params.lives
+    self.players = params.players
     self.specialLettersLit = params.specialLettersLit
+	for index, e in pairs(self.players) do
+		e.lives = e.lives + 1
+	end
 
     Timer.after(5, function ()
         gStateMachine:change('levelstart',
             {
                 level = self.level + 1,
-                score = self.score,
-                lives = self.lives + 1,
+                players = self.players,
                 extraLettersLit = {},
                 specialLettersLit = self.specialLettersLit
             })

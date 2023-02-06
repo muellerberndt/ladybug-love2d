@@ -15,6 +15,7 @@ anim8 = require 'lib.anim8'
 require 'globals'
 
 Entity = require 'Entity'
+PlayerStat = require 'PlayerStat'
 require 'EntityManager'
 require 'StateMachine'
 require 'states.BaseState'
@@ -86,6 +87,7 @@ function love.load()
         ['ladybug'] = love.graphics.newImage('assets/graphics/ladybug.png'),
         ['ladybug2'] = love.graphics.newImage('assets/graphics/ladybug2.png'),
         ['life'] = love.graphics.newImage('assets/graphics/life.png'),
+        ['life2'] = love.graphics.newImage('assets/graphics/life2.png'),
         ['turnstile'] = love.graphics.newImage('assets/graphics/turnstile.png'),
         ['flower'] = love.graphics.newImage('assets/graphics/dot.png'),
         ['cucumber'] = love.graphics.newImage('assets/graphics/cucumber.png'),

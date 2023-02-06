@@ -113,7 +113,7 @@ function EntityManager:update(dt)
 
 			for i,v in ipairs(self.flowers) do
 				if v:collide(e) then
-					v:onCollide()
+					v:onCollide(e)
 				end
 			end
 
@@ -131,7 +131,7 @@ function EntityManager:update(dt)
 					v:destroy()
 					e:die()
 				elseif v.type == "plant" and v:collide(e) then
-					Event.dispatch("plantEaten", v)
+					Event.dispatch("plantEaten", v, e)
 					v:destroy()
 				end
 			end
@@ -169,7 +169,7 @@ function EntityManager:update(dt)
 	for i,v in ipairs(self.letters) do
 		for _, e in pairs(self.player) do
 			if v:collide(e) then
-				v:onCollide()
+				v:onCollide(e)
 			end
 		end
 	end

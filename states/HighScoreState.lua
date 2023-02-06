@@ -44,8 +44,16 @@ function HighScoreState:update(dt)
         gStateMachine:change('levelstart',
             {
                 level = 1,
-                score = 0,
-                lives = 3,
+                players = { PlayerStat(3, 0) },
+                extraLettersLit = {},
+                specialLettersLit = {}
+            })
+    end
+    if love.keyboard.keyPressed['2'] then
+        gStateMachine:change('levelstart',
+            {
+                level = 1,
+                players = { PlayerStat(3, 0), PlayerStat(3, 0) },
                 extraLettersLit = {},
                 specialLettersLit = {}
             })
