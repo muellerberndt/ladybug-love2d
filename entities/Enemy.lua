@@ -188,18 +188,22 @@ function Enemy:update(dt)
             self.hitbox.y1 = self.y + 2
             self.hitbox.y2 = self.y + 14
 
-		if (table.getn(self.entityManager.player) == 2 and love.math.random() > 0.95) then
-			if self.target == 1 then
-				self.target = 2
-			else
+			if (table.getn(self.entityManager.player) == 2 and love.math.random() > 0.95) then
+				if self.target == 1 then
+					self.target = 2
+				else
+					self.target = 1
+				end
+			elseif self.target == 2 and table.getn(self.entityManager.player) == 1 then
 				self.target = 1
 			end
-		end
-            local ownRow, ownCol = getTileForPosition(self.x, self.y)
-            local playerRow, playerCol = getTileForPosition(self.entityManager.player[self.target].x, self.entityManager.player[self.target].y)
+			if self.target <= table.getn(self.entityManager.player) then
+				local ownRow, ownCol = getTileForPosition(self.x, self.y)
+				local playerRow, playerCol = getTileForPosition(self.entityManager.player[self.target].x, self.entityManager.player[self.target].y)
 
-            local row, col = self:getNextStep(ownRow, ownCol, playerRow, playerCol, self.entityManager.tilemap)
-            self:moveTo(row, col)
+				local row, col = self:getNextStep(ownRow, ownCol, playerRow, playerCol, self.entityManager.tilemap)
+				self:moveTo(row, col)
+			end
         end
     end
     Entity.update(self)
