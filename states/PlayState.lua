@@ -361,17 +361,28 @@ function PlayState:enter(params)
 
             changed = false
 
+			if (not highscores[10]) or (self.players[1].score > highscores[10][1]) then
+				changed = true
+			elseif (table.getn(self.player) == 2) and (self.players[2].score > highscores[10][1]) then
+				changed = true
+			end
             for i=1,10 do
                 if (not highscores[i]) or (self.players[1].score > highscores[i][1]) then
-                    gStateMachine:change("gameover", {
-                        score = self.players[1].score
-                    })
                     changed = true
                     break
                 end
             end
 
-            if not changed then gStateMachine:change('title') end
+            if not changed then gStateMachine:change('title')
+            else
+				local score = {}
+				for _, e in pairs(self.players) do
+					table.insert(score, e.score)
+				end
+				gStateMachine:change("gameover", {
+					score = score
+				})
+            end
         end
 
 		self.entityManager.player = {}

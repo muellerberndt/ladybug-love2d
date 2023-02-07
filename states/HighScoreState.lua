@@ -14,29 +14,31 @@ function HighScoreState:saveHighScores()
 end
 
 function HighScoreState:newHighScore(new)
-    score = new['score']
-    name = new['name']
+	for _, next in pairs(new) do
+		score = next['score']
+		name = next['name']
 
-    for i=1,10 do
-        if (not self.highscores[i]) then
-            self.highscores[i] = {score, name}
-            break
-        end
-        if score > self.highscores[i][1] then
-            if i == 10 then
-                self.highscores[i] = {score, name}
-            else
-                for j=9,i,-1 do
-                    self.highscores[j+1] = self.highscores[j]
-                end
-                self.highscores[i] = {score, name}
-            end
-            break
-        end
-    end
+		for i=1,10 do
+			if (not self.highscores[i]) then
+				self.highscores[i] = {score, name}
+				break
+			end
+			if score > self.highscores[i][1] then
+				if i == 10 then
+					self.highscores[i] = {score, name}
+				else
+					for j=9,i,-1 do
+						self.highscores[j+1] = self.highscores[j]
+					end
+					self.highscores[i] = {score, name}
+				end
+				break
+			end
+		end
 
-    self:saveHighScores()
-    self:getHighScores()
+		self:saveHighScores()
+		self:getHighScores()
+	end
 end
 
 function HighScoreState:update(dt)
