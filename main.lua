@@ -62,7 +62,11 @@ SHOW_TILES = false
 
 local paused = false
 
-function love.load()
+function love.load(args)
+    local fullscreen = false
+    if args[1] == '--fullscreen' then
+        fullscreen = true
+    end
     -- initialize our nearest-neighbor filter
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
@@ -123,7 +127,7 @@ function love.load()
     -- initialize our virtual resolution
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         vsync = true,
-        fullscreen = false,
+        fullscreen = fullscreen,
         resizable = true
     })
 
