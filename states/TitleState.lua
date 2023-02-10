@@ -8,7 +8,7 @@ function TitleState:update(dt)
 
     self.animation:update(dt)
 
-    if love.keyboard.keyPressed['return'] then
+    if love.keyboard.keyPressed['return'] or love.keyboard.keyPressed['1'] then
         gStateMachine:change('levelstart',
             {
                 level = 1,

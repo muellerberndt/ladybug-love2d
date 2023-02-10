@@ -167,6 +167,9 @@ end
 
 function love.update(dt)
 
+    if love.keyboard.isDown('1') and love.keyboard.isDown('2') then
+        love.event.quit()
+    end
     if paused == false then
         gStateMachine:update(dt)
     end

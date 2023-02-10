@@ -42,7 +42,7 @@ function HighScoreState:newHighScore(new)
 end
 
 function HighScoreState:update(dt)
-    if love.keyboard.keyPressed['return'] then
+    if love.keyboard.keyPressed['return'] or love.keyboard.keyPressed['1'] then
         gStateMachine:change('levelstart',
             {
                 level = 1,

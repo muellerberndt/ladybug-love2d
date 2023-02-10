@@ -363,7 +363,7 @@ function PlayState:enter(params)
 
 			if (not highscores[10]) or (self.players[1].score > highscores[10][1]) then
 				changed = true
-			elseif (table.getn(self.player) == 2) and (self.players[2].score > highscores[10][1]) then
+			elseif (table.getn(self.players) == 2) and (self.players[2].score > highscores[10][1]) then
 				changed = true
 			end
             for i=1,10 do
