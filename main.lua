@@ -74,7 +74,7 @@ function love.load(args)
     math.randomseed(os.time())
 
     -- app window title
-    love.window.setTitle('Lady Bug')
+    love.window.setTitle('Lady Beetle')
 
     love.keyboard.keyPressed = {}
 
@@ -97,6 +97,7 @@ function love.load(args)
         ['cucumber'] = love.graphics.newImage('assets/graphics/cucumber.png'),
         ['skull'] = love.graphics.newImage('assets/graphics/skull.png'),
         ['ghost'] = love.graphics.newImage('assets/graphics/ghost.png'),
+        ['ghost2'] = love.graphics.newImage('assets/graphics/ghost2.png'),
         ['heart'] = love.graphics.newImage('assets/graphics/heart.png'),
         ['a'] = love.graphics.newImage('assets/letters/a.png'),
         ['c'] = love.graphics.newImage('assets/letters/c.png'),
@@ -121,8 +122,9 @@ function love.load(args)
         ['die'] = love.audio.newSource('assets/sounds/die.wav', 'static'),
         ['veggieeaten'] = love.audio.newSource('assets/sounds/veggieeaten.wav', 'static'),
         ['extramusic'] = love.audio.newSource('assets/sounds/extramusic.wav', 'static'),
-        ['music'] = love.audio.newSource('assets/music/8_Bit_Retro_Funk_David_Renda.mp3', 'static')
+        ['music'] = love.audio.newSource('assets/music/28th_st_timezone.mp3', 'static')
     }
+    sounds['music']:setLooping(true)
 
     -- initialize our virtual resolution
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
