@@ -1,4 +1,4 @@
-# Ladybug LÖVE
+# Lady Beetle LÖVE
 
 <p align="center">
 	<img src="screenshot.png" height="480px"/>
@@ -19,4 +19,7 @@ love .
 ## Acknowledgements
 
 - Credits go to [Cosimo](https://github.com/cosimo) for his earlier work on a Love2D port, I re-used some of his assets.
-- The game music track is "8 bit Retro Funk" by David Renda / [FesliyanStudios](https://www.fesliyanstudios.com).
+- The game music track is [28th Street Timezone](https://opengameart.org/content/28th-street-timezone) by Locomule (License: CC0)
+- [KIRB32 palette](https://lospec.com/palette-list/kirb32) used for new artwork
+- Ghost modified from [Upward Floating Soul](https://opengameart.org/content/upwards-floating-soul) by patvanmackelberg (License: CC0)
+- Some fruit modified from [CC0 Food Icons](https://opengameart.org/content/cc0-food-icons) (License: CC0)

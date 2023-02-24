@@ -15,6 +15,7 @@ anim8 = require 'lib.anim8'
 require 'globals'
 
 Entity = require 'Entity'
+PlayerStat = require 'PlayerStat'
 require 'EntityManager'
 require 'StateMachine'
 require 'states.BaseState'
@@ -61,7 +62,11 @@ SHOW_TILES = false
 
 local paused = false
 
-function love.load()
+function love.load(args)
+    local fullscreen = false
+    if args[1] == '--fullscreen' then
+        fullscreen = true
+    end
     -- initialize our nearest-neighbor filter
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
@@ -69,7 +74,7 @@ function love.load()
     math.randomseed(os.time())
 
     -- app window title
-    love.window.setTitle('Lady Bug')
+    love.window.setTitle('Lady Beetle')
 
     love.keyboard.keyPressed = {}
 
@@ -84,12 +89,15 @@ function love.load()
         ['playfield'] = love.graphics.newImage('assets/graphics/playfield.png'),
         ['top'] = love.graphics.newImage('assets/graphics/topfield.png'),
         ['ladybug'] = love.graphics.newImage('assets/graphics/ladybug.png'),
+        ['ladybug2'] = love.graphics.newImage('assets/graphics/ladybug2.png'),
         ['life'] = love.graphics.newImage('assets/graphics/life.png'),
+        ['life2'] = love.graphics.newImage('assets/graphics/life2.png'),
         ['turnstile'] = love.graphics.newImage('assets/graphics/turnstile.png'),
         ['flower'] = love.graphics.newImage('assets/graphics/dot.png'),
         ['cucumber'] = love.graphics.newImage('assets/graphics/cucumber.png'),
         ['skull'] = love.graphics.newImage('assets/graphics/skull.png'),
         ['ghost'] = love.graphics.newImage('assets/graphics/ghost.png'),
+        ['ghost2'] = love.graphics.newImage('assets/graphics/ghost2.png'),
         ['heart'] = love.graphics.newImage('assets/graphics/heart.png'),
         ['a'] = love.graphics.newImage('assets/letters/a.png'),
         ['c'] = love.graphics.newImage('assets/letters/c.png'),
@@ -114,13 +122,14 @@ function love.load()
         ['die'] = love.audio.newSource('assets/sounds/die.wav', 'static'),
         ['veggieeaten'] = love.audio.newSource('assets/sounds/veggieeaten.wav', 'static'),
         ['extramusic'] = love.audio.newSource('assets/sounds/extramusic.wav', 'static'),
-        ['music'] = love.audio.newSource('assets/music/8_Bit_Retro_Funk_David_Renda.mp3', 'static')
+        ['music'] = love.audio.newSource('assets/music/28th_st_timezone.mp3', 'static')
     }
+    sounds['music']:setLooping(true)
 
     -- initialize our virtual resolution
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         vsync = true,
-        fullscreen = false,
+        fullscreen = fullscreen,
         resizable = true
     })
 
@@ -164,6 +173,9 @@ end
 
 function love.update(dt)
 
+    if love.keyboard.isDown('1') and love.keyboard.isDown('2') then
+        love.event.quit()
+    end
     if paused == false then
         gStateMachine:update(dt)
     end

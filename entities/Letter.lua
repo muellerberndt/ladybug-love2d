@@ -40,9 +40,9 @@ function Letter:init(x, y, letter)
 
 end
 
-function Letter:onCollide()
+function Letter:onCollide(player)
     sounds['eatitem']:play()
-    Event.dispatch('letterAwarded', self)
+    Event.dispatch('letterAwarded', self, player)
 end
 
 

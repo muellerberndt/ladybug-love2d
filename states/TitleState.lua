@@ -8,12 +8,25 @@ function TitleState:update(dt)
 
     self.animation:update(dt)
 
-    if love.keyboard.keyPressed['return'] then
+    if love.keyboard.keyPressed['return'] or love.keyboard.keyPressed['1'] then
         gStateMachine:change('levelstart',
             {
                 level = 1,
                 score = 0,
                 lives = 3,
+                players = { PlayerStat(3, 0) },
+                extraLettersLit = {},
+                specialLettersLit = {}
+            })
+    end
+
+    if love.keyboard.keyPressed['2'] then
+        gStateMachine:change('levelstart',
+            {
+                level = 1,
+                score = 0,
+                lives = 3,
+                players = { PlayerStat(3, 0), PlayerStat(3, 0) },
                 extraLettersLit = {},
                 specialLettersLit = {}
             })

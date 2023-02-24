@@ -52,6 +52,7 @@ function LevelStartState:enter(params)
     self.level = params.level or 1
     self.lives = params.lives or 3
     self.score = params.score or 0
+    self.players = params.players
 
     -- RNG stuff
 
@@ -73,7 +74,8 @@ function LevelStartState:enter(params)
             {
                 level = self.level,
                 score = self.score,
-                lives = self.lives ,
+                lives = self.lives,
+                players = self.players,
                 extraLetter = self.extraLetter,
                 specialLetter = self.specialLetter,
                 commonLetter = self.commonLetter,

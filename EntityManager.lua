@@ -27,7 +27,7 @@ end
 
 function EntityManager:addEntity(entity, type)
 	if type == EntityTypes.PLAYER then
-		self.player = entity
+		table.insert(self.player, entity)
 	elseif type == EntityTypes.ENEMY then
 		table.insert(self.enemies, entity)
 	elseif type == EntityTypes.WALL then
@@ -75,63 +75,69 @@ function EntityManager:unfreezeEnemies()
 end
 
 function EntityManager:freezeGame()
-    self.gameFrozen = true
-    self.player:freezeIfAlive()
+	self.gameFrozen = true
+	for _, e in pairs(self.player) do
+		e:freezeIfAlive()
+	end
 end
 
 function EntityManager:unfreezeGame()
-    self.gameFrozen = false
-    self.player:unfreeze()
+	self.gameFrozen = false
+	for _, e in pairs(self.player) do
+		e:unfreeze()
+	end
 end
 
 function EntityManager:update(dt)
 
-	if self.player then
-		self.player:update(dt)
+	for _, e in pairs(self.player) do
+		e:update(dt)
 	end
 
-    if not self.gameFrozen then
+	if not self.gameFrozen then
 
-        if self.player.state == "alive" then
+	for _, e in pairs(self.player) do
+		if e.state == "alive" then
 
-            for i,v in ipairs(self.walls) do
-                if v:collide(self.player) then
-                    self.player:resetPosition()
-                end
-            end
+			for i,v in ipairs(self.walls) do
+				if v:collide(e) then
+					e:resetPosition()
+				end
+			end
 
-            for i,v in ipairs(self.enemies) do
-                if v:collide(self.player) and self.player.state == "alive" then
-                    self.player:die()
-                end
-            end
+			for i,v in ipairs(self.enemies) do
+				if v:collide(e) and e.state == "alive" then
+					e:die()
+				end
+			end
 
-            for i,v in ipairs(self.flowers) do
-                if v:collide(self.player) then
-                    v:onCollide()
-                end
-            end
+			for i,v in ipairs(self.flowers) do
+				if v:collide(e) then
+					v:onCollide(e)
+				end
+			end
 
-            for _, t in pairs(self.turnstiles) do
-                local row, col = getTileForPosition(self.player.x, self.player.y)
-                t:update(
-                    row,
-                    col,
-                    self.player.orientation
-                )
-            end
+			for _, t in pairs(self.turnstiles) do
+				local row, col = getTileForPosition(e.x, e.y)
+				t:update(
+					row,
+					col,
+					e.orientation
+				)
+			end
 
-            for i,v in ipairs(self.gameObjects) do
-                if v.type == "skull" and v:collide(self.player) then
-                    v:destroy()
-                    self.player:die()
-                elseif v.type == "plant" and v:collide(self.player) then
-                    Event.dispatch("plantEaten", v)
-                    v:destroy()
-                end
-            end
+			for i,v in ipairs(self.gameObjects) do
+				if v.type == "skull" and v:collide(e) then
+					v:destroy()
+					e:die()
+				elseif v.type == "plant" and v:collide(e) then
+					Event.dispatch("plantEaten", v, e)
+					v:destroy()
+				end
+			end
+		end
 
-        end
+	end
 
         --- Update door positions based on turnstiles & their respective orientation
 
@@ -160,11 +166,13 @@ function EntityManager:update(dt)
             end
         end
 
-        for i,v in ipairs(self.letters) do
-            if v:collide(self.player) then
-                v:onCollide()
-            end
-        end
+	for i,v in ipairs(self.letters) do
+		for _, e in pairs(self.player) do
+			if v:collide(e) then
+				v:onCollide(e)
+			end
+		end
+	end
 
         self:updateTable(self.gameObjects, dt)
     end
@@ -181,7 +189,7 @@ function EntityManager:draw()
 	self:drawTable(self.flowers)
 	self:drawTable(self.letters)
 	self:drawTable(self.enemies)
-	self.player:draw()
+	self:drawTable(self.player)
 end
 
 

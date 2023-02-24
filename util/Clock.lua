@@ -40,13 +40,15 @@ function Clock.draw(ticks)
     ticks = ticks % 93
     i = 0
 
-    love.graphics.setColor(0.99, 0.99, 0.99, 1)
+    love.graphics.setColor(0.98, 0.93, 0.25, 1)
 
     while ticks > 0 and i < 93 do
         drawTick(i)
         i = i + 1
         ticks = ticks - 1
     end
+
+    love.graphics.setColor(0.99, 0.99, 0.99, 1)
 
 end
 

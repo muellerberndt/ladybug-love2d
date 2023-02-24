@@ -1,9 +1,26 @@
 Player = Class{__includes = Entity}
 
-function Player:init()
+function Player:init(n, stat)
     Entity.init(self, VIRTUAL_WIDTH / 2 - 8, 184)
 
+    self.number = n
+    if (n == 1) then
+	self.left = "left"
+	self.right = "right"
+	self.up = "up"
+	self.down = "down"
+	self.texture = gTextures['ladybug']
+	self.ghost = gTextures['ghost']
+    else
+	self.left = "a"
+	self.right = "d"
+	self.up = "w"
+	self.down = "s"
+	self.texture = gTextures['ladybug2']
+	self.ghost = gTextures['ghost2']
+    end
     self.hitbox = {}
+	self.stat = stat
 
     self.hitbox.x1 = self.x + 4
     self.hitbox.x2 = self.x + 12
@@ -56,16 +73,16 @@ function Player:update(dt)
         self.lastX = self.x
         self.lastY = self.y
 
-        if love.keyboard.isDown("left") then
+        if love.keyboard.isDown(self.left) then
             self.orientation = Orientation.LEFT
             self:move(-PLAYER_SPEED * dt, 0)
-        elseif love.keyboard.isDown("right") then
+        elseif love.keyboard.isDown(self.right) then
             self.orientation = Orientation.RIGHT
             self:move(PLAYER_SPEED * dt, 0)
-        elseif love.keyboard.isDown("up") then
+        elseif love.keyboard.isDown(self.up) then
             self.orientation = Orientation.UP
             self:move(0, -PLAYER_SPEED * dt)
-        elseif love.keyboard.isDown("down") then
+        elseif love.keyboard.isDown(self.down) then
             self.orientation = Orientation.DOWN
             self:move(0, PLAYER_SPEED * dt, 0)
         end
@@ -77,7 +94,7 @@ function Player:update(dt)
         self.tick = self.tick + dt
 
         if self.tick > 2 then
-            Event.dispatch("playerDeath")
+            Event.dispatch("playerDeath", self)
         end
 
         self.x = self.baseX + 15 * math.sin(self.tick * 10)
@@ -93,10 +110,10 @@ function Player:draw()
 
     if self.state == "alive" then
         --- Draw from center
-        self.animation:draw(gTextures['ladybug'], self.x + 8, self.y + 8, self.orientation, 1, 1, 8, 8)
+        self.animation:draw(self.texture, self.x + 8, self.y + 8, self.orientation, 1, 1, 8, 8)
         Entity.draw(self)
     elseif self.state == "dead" or self.state == "goingtoheaven" then
-        self.deathAnimation:draw(gTextures['ghost'], self.x, self.y)
+        self.deathAnimation:draw(self.ghost, self.x, self.y)
         Entity.draw(self)
     end
 end
